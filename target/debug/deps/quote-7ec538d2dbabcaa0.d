@@ -1,0 +1,13 @@
+/Users/zeek/map-proto1/target/debug/deps/quote-7ec538d2dbabcaa0.rmeta: /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/lib.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ext.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/format.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ident_fragment.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/to_tokens.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/runtime.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/spanned.rs
+
+/Users/zeek/map-proto1/target/debug/deps/libquote-7ec538d2dbabcaa0.rlib: /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/lib.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ext.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/format.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ident_fragment.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/to_tokens.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/runtime.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/spanned.rs
+
+/Users/zeek/map-proto1/target/debug/deps/quote-7ec538d2dbabcaa0.d: /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/lib.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ext.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/format.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ident_fragment.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/to_tokens.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/runtime.rs /Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/spanned.rs
+
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/lib.rs:
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ext.rs:
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/format.rs:
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/ident_fragment.rs:
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/to_tokens.rs:
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/runtime.rs:
+/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/quote-1.0.20/src/spanned.rs:

@@ -1,0 +1,7 @@
+---
+manifest_version: "1"
+name: map_proto1
+ui:
+  bundled: "../ui/dist.zip"
+happ_manifest:
+  bundled: "./map_proto1.happ"

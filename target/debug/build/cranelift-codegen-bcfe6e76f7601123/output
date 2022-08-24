@@ -1,0 +1,1 @@
+cargo:rerun-if-changed=/Users/zeek/.cargo/registry/src/github.com-1ecc6299db9ec823/cranelift-codegen-0.76.0/build.rs

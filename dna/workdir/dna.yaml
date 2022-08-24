@@ -1,0 +1,19 @@
+---
+manifest_version: "1"
+name: forum
+uuid: 00000000-0000-0000-0000-000000000000
+properties: ~
+zomes: 
+  - name: profiles
+    bundled: ../../target/wasm32-unknown-unknown/release/profiles.wasm
+  - name: comments
+    bundled: ../../target/wasm32-unknown-unknown/release/comments.wasm
+  - name: reactions
+    bundled: ../../target/wasm32-unknown-unknown/release/reactions.wasm
+  - name: lobby
+    bundled: ../../target/wasm32-unknown-unknown/release/lobby.wasm
+  - name: topics
+    bundled: ../../target/wasm32-unknown-unknown/release/topics.wasm
+  - name: posts
+    bundled: ../../target/wasm32-unknown-unknown/release/posts.wasm
+
