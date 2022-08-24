@@ -1,0 +1,16 @@
+[workspace]
+resolver = "2"
+members = [
+    "dna/zomes/data/holon_space/holon",
+    "dna/zomes/data/property",
+    "dna/zomes/data/meta_space/interface/descriptor",
+    "dna/zomes/data/meta_space/interface/exports",
+    "dna/zomes/data/meta_space/interface/mapping",
+    "dna/zomes/data/meta_space/interface/types",
+]
+
+[profile.dev]
+opt-level = "z"
+
+[profile.release]
+opt-level = "z"
