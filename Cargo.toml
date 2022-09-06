@@ -3,10 +3,11 @@ resolver = "2"
 members = [
     "dna/zomes/data/holon_space/holon",
     "dna/zomes/data/property",
-    "dna/zomes/data/meta_space/interface/descriptor",
-    "dna/zomes/data/meta_space/interface/exports",
-    "dna/zomes/data/meta_space/interface/mapping",
-    "dna/zomes/data/meta_space/interface/types",
+    "dna/zomes/data/meta_space/descriptor",
+    "dna/zomes/data/meta_space/exports",
+    "dna/zomes/data/meta_space/mapping",
+    "dna/zomes/data/meta_space/types",
+    "dna/zomes/coordination/interface",
 ]
 
 [profile.dev]
