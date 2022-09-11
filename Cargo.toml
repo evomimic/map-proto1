@@ -1,12 +1,11 @@
 [workspace]
 resolver = "2"
 members = [
-    "dna/zomes/data/holon_space/holon",
-    "dna/zomes/data/property",
-    "dna/zomes/data/meta_space/descriptor",
-    "dna/zomes/data/meta_space/exports",
-    "dna/zomes/data/meta_space/mapping",
-    "dna/zomes/data/meta_space/types",
+    "dna/zomes/integrity/holon_space/holon",
+    "dna/zomes/integrity/property",
+    "dna/zomes/integrity/meta_space/descriptor",
+    "dna/zomes/integrity/meta_space/exports",
+    "dna/zomes/integrity/meta_space/mapping",
     "dna/zomes/coordination/interface",
 ]
 
