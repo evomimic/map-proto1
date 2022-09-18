@@ -1,11 +1,11 @@
 [package]
-name = "hc_zome_meta_interface_descriptor"
+name = "hc_zome_meta_space_descriptor"
 version = "0.0.1"
 authors = [ "Zeek" ]
 edition = "2021"
 
 [lib]
-name = "hc_zome_meta_interface_descriptor"
+name = "hc_zome_meta_space_descriptor"
 crate-type = [ "cdylib", "rlib" ]
 
 [dependencies]
@@ -14,4 +14,4 @@ derive_more = "0"
 hdi = "0.0.14"
 holo_hash = { version = "=0.0.30", features = ["encoding"] }
 
-hc_zome_coordination_interface = {path = "../../../../coordination/interface"}
+hc_zome_coordination_interface = {path = "../../../coordination/interface"}

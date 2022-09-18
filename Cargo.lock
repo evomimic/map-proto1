@@ -524,13 +524,14 @@ version = "0.0.1"
 dependencies = [
  "chrono",
  "derive_more",
+ "hc_zome_meta_space_descriptor",
  "hdi",
  "holo_hash",
  "serde",
 ]
 
 [[package]]
-name = "hc_zome_meta_interface_descriptor"
+name = "hc_zome_meta_space_descriptor"
 version = "0.0.1"
 dependencies = [
  "derive_more",

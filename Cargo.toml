@@ -6,7 +6,6 @@ members = [
     "dna/zomes/integrity/meta_space/descriptor",
     "dna/zomes/integrity/meta_space/exports",
     "dna/zomes/integrity/meta_space/mapping",
-    "dna/zomes/coordination/interface",
 ]
 
 [profile.dev]

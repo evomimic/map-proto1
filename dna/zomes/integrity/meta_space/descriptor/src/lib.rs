@@ -1,58 +1,109 @@
 
-use::hc_zome_coordination_interface::Descriptor;
+pub trait Descriptor {
+    // fn action(params: U) -> ActionResult;
+    // fn map_link(&self) -> Relationship;
+}
+
+enum Description {
+    String
+}
+
+enum TimeZone {
+
+}
+
+enum Composite {
+    FloatComposite(FloatDescriptor),
+    DateTimeComposite(DateTimeDescriptor)
+}
+
+enum IntegerFormat {
+
+}
 
 enum StringFormat {
 
 }
 
-pub struct StringDescriptor {
+struct FloatDescriptor {
+    significand: IntegerProperty,
+    base: IntegerProperty,
+    exponent: IntegerProperty,
+    precision: IntegerProperty,
+}
+
+struct IntegerDescriptor {
+    format: IntegerFormat,
+    min_value: u8,
+    max_value: u8,
+}
+
+struct DateTimeDescriptor {
+    date: DateDescriptor,
+    time: TimeDescriptor,
+    timezone: TimeZone,
+}
+
+struct DateDescriptor {
+    date: IntegerProperty,
+    month: IntegerProperty,
+    year: IntegerProperty,
+}
+
+struct TimeDescriptor { // meant to be a TimeStamp ?
+    seconds: FloatDescriptor,
+    hours: IntegerDescriptor,
+    
+}
+
+struct StringDescriptor {
     min_length: u8,
     max_length: u8,
     pattern: String,
     format: StringFormat
 }
-
-impl Descriptor for StringDescriptor {
-    fn new(min_length: u8, max_length: u8, pattern: String, format: StringFormat) -> StringDescriptor {
+impl StringDescriptor {
+    fn new(min_length: u8, max_length: u8, pattern: String, format: StringFormat) -> Self {
         Self {
-            min_length,
-            max_length,
-            pattern,
-            format
+        min_length, 
+        max_length,
+        pattern, 
+        format
         }
     }
 }
 
-pub struct TypeDescriptor {
-    uid: u8, // TODO: encode base64
+struct TypeDescriptor {
+    uid: u8, // ?TODO: encode base64
     name: String,
     description: String,
-    semantic: String, // IRI
+    semantic: StringFormat, // IRI
     // created_at: DateTime
 }
-
-impl Describe for TypeDescriptor {
-    fn new(uid: u8, name: String, description: String, semantic: String) -> Self {
+impl TypeDescriptor {
+    fn new(uid: u8, name: String, description: String, semantic: StringFormat) -> Self {
         Self {
-            uid,
-            name,
-            description,
-            semantic
+        uid, 
+        name,
+        description, 
+        semantic
         }
     }
 }
 
-pub struct HolonDescriptor {
-    identifying_properties: Box<dyn Descriptor>,
-    properties: Box<dyn Descriptor>,
-    
-}
 
-impl Descriptor for HolonDescriptor {
-    fn new<Descriptor>(identifying_properties: Box<dyn Descriptor>, properties: Box<dyn Descriptor>) -> StringDescriptor {
+struct HolonDescriptor<T: Descriptor> {
+    identifying_properties: Vec<T>,
+    properties: Vec<T>,
+}
+impl<T> HolonDscriptor<T> 
+ where 
+    T: Descriptor,
+{
+    fn new( identifying_properties: Vec<T>, properties: T ) -> Self {
         Self {
-            identifying_properties,
-            properties,
+        identifying_properties,
+        properties,
         }
     }
 }
