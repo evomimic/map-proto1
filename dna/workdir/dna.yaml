@@ -14,8 +14,6 @@ integrity:
       bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_metaspace_exports.wasm
     - name: hc_zome_integrity_metaspace_mapping.wasm
       bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_metaspace_mapping.wasm
-    - name: hc_zome_integrity_metaspace_mapping.wasm
-      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_property.wasm
 coordinator:
   zomes:
     - name: hc_zome_coordinator
@@ -25,4 +23,3 @@ coordinator:
         - name: hc_zome_integrity_metaspace_descriptor
         - name: hc_zome_integrity_metaspace_exports
         - name: hc_zome_integrity_metaspace_mapping
-        - name: hc_zome_integrity_property

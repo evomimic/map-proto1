@@ -4,63 +4,52 @@ pub trait Descriptor {
     // fn map_link(&self) -> Relationship;
 }
 
-enum Description {
-    String
-}
-
-enum TimeZone {
-
-}
-
-enum Composite {
-    FloatComposite(FloatDescriptor),
-    DateTimeComposite(DateTimeDescriptor)
-}
-
-enum IntegerFormat {
+pub enum Description {
+    FloatDescription(FloatDescriptor),
+    IntegerDescription(IntegerDescriptor),
+    DateTimeDescription(DateTimeDescriptor),
+    DateDescription(DateDescriptor),
+    TimeDescription(TimeDescriptor),
+    StringDescription(StringDescriptor),
 
 }
 
-enum StringFormat {
-
+pub struct FloatDescriptor {
+    pub significand: IntegerProperty,
+    pub base: IntegerProperty,
+    pub exponent: IntegerProperty,
+    pub precision: IntegerProperty,
 }
 
-struct FloatDescriptor {
-    significand: IntegerProperty,
-    base: IntegerProperty,
-    exponent: IntegerProperty,
-    precision: IntegerProperty,
+pub struct IntegerDescriptor {
+    pub format: IntegerFormat,
+    pub min_value: u8,
+    pub max_value: u8,
 }
 
-struct IntegerDescriptor {
-    format: IntegerFormat,
-    min_value: u8,
-    max_value: u8,
+pub struct DateTimeDescriptor {
+    pub date: DateDescriptor,
+    pub time: TimeDescriptor,
+    pub timezone: TimeZone,
 }
 
-struct DateTimeDescriptor {
-    date: DateDescriptor,
-    time: TimeDescriptor,
-    timezone: TimeZone,
+pub struct DateDescriptor {
+    pub date: IntegerProperty,
+    pub month: IntegerProperty,
+    pub year: IntegerProperty,
 }
 
-struct DateDescriptor {
-    date: IntegerProperty,
-    month: IntegerProperty,
-    year: IntegerProperty,
-}
-
-struct TimeDescriptor { // meant to be a TimeStamp ?
-    seconds: FloatDescriptor,
-    hours: IntegerDescriptor,
+pub struct TimeDescriptor { // meant to be a TimeStamp ?
+    pub seconds: FloatDescriptor,
+    pub hours: IntegerDescriptor,
     
 }
 
-struct StringDescriptor {
-    min_length: u8,
-    max_length: u8,
-    pattern: String,
-    format: StringFormat
+pub struct StringDescriptor {
+    pub min_length: u8,
+    pub max_length: u8,
+    pub pattern: String,
+    pub format: StringFormat
 }
 impl StringDescriptor {
     fn new(min_length: u8, max_length: u8, pattern: String, format: StringFormat) -> Self {
@@ -73,12 +62,13 @@ impl StringDescriptor {
     }
 }
 
-struct TypeDescriptor {
-    uid: u8, // ?TODO: encode base64
-    name: String,
-    description: String,
-    semantic: StringFormat, // IRI
-    // created_at: DateTime
+
+pub struct TypeDescriptor {
+    pub uid: u8, // ?TODO: encode base64
+    pub name: String,
+    pub description: Description,
+    pub semantic: StringFormat, // IRI
+    // pub created_at: DateTime
 }
 impl TypeDescriptor {
     fn new(uid: u8, name: String, description: String, semantic: StringFormat) -> Self {
@@ -92,18 +82,25 @@ impl TypeDescriptor {
 }
 
 
-struct HolonDescriptor<T: Descriptor> {
-    identifying_properties: Vec<T>,
-    properties: Vec<T>,
+pub struct HolonDescriptor {
+    pub properties: PropertyMap,
+    pub identifying_properties: HolonDescriptor,
 }
-impl<T> HolonDscriptor<T> 
- where 
-    T: Descriptor,
+impl<T> HolonDescriptor<T> 
+//  where 
+//     T: Descriptor,
 {
-    fn new( identifying_properties: Vec<T>, properties: T ) -> Self {
+    fn new( properties: PropertyMap, identifying_properties: HolonDescriptor ) -> Self {
         Self {
-        identifying_properties,
         properties,
+        identifying_properties,
         }
     }
+}
+
+
+pub struct RelationshipDescriptor {
+    id: String,
+    created_at: DateTime,
+    //
 }

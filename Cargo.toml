@@ -2,7 +2,6 @@
 resolver = "2"
 members = [
     "dna/zomes/integrity/holon_space/holon",
-    "dna/zomes/integrity/property",
     "dna/zomes/integrity/meta_space/descriptor",
     "dna/zomes/integrity/meta_space/exports",
     "dna/zomes/integrity/meta_space/mapping",
