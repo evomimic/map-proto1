@@ -1,1 +1,18 @@
-**/.DS_Store
+## editors
+/.idea
+/.vscode
+*.swp
+
+## system files
+.DS_Store
+
+target/
+node_modules/
+dist/
+.cargo/
+.hc*
+dna/workdir/dna/*.dna
+dna/workdir/happ/*.happ
+workdir/*.webhapp
+*.tsbuildinfo
+.running

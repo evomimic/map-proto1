@@ -1,5 +1,5 @@
+use std::collections::BTreeMap;
 
-
-pub struct Property {
-    name: String
+pub struct PropertyMap<K,V> {
+    identifying_properties: BTreeMap<K,V>,
 }

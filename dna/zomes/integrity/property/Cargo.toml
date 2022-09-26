@@ -1,11 +1,11 @@
 [package]
-name = "property"
+name = "hc_zome_integrity_property"
 version = "0.0.1"
 authors = [ "Zeek" ]
 edition = "2021"
 
 [lib]
-name = "property"
+name = "hc_zome_integrity_property"
 crate-type = [ "cdylib", "rlib" ]
 
 [dependencies]

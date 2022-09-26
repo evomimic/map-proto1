@@ -1,7 +1,10 @@
+use std::collections::BTreeMap;
 // use hdi::prelude::hash_blake2b;
-use hdi::prelude::Timestamp;
 // use hdk::prelude::holo_hash::*;
-use hc_zome_meta_space_descriptor::{ Descriptor, HolonDescriptor };
+use hdi::prelude::Timestamp;
+use hc_zome_integrity_metaspace_descriptor::{ Descriptor, HolonDescriptor };
+use hc_zome_integrity_property::PropertyMap;
+
 struct SemanticVersion {
     major: u8,
     minor: u8,
@@ -16,14 +19,14 @@ pub struct Holon<T: Descriptor> {
     created_at: Timestamp,
     version: SemanticVersion,
     descriptor: HolonDescriptor<T>,
-    identifying_properties: T,
+    properties: PropertyMap,
     // actions:
     // relationships:
 
 }
 
 impl Holon<T> {
-    fn new(namespace_id: u8, local_id: u8, version: SemanticVersion, identifying_properties: T, properties: T) -> Self {        
+    fn new(namespace_id: u8, local_id: u8, version: SemanticVersion, properties: PropertyMap) -> Self {        
         // let holon_id = hash(&namespace_id + &local_id);
         // let stamp = time.timestamp();
         Self {
@@ -33,7 +36,7 @@ impl Holon<T> {
             created_at: stamp,
             version,
             descriptor: HolonDescriptor::new(),
-            identifying_properties,
+            properties,
         }
     }
     //fn link()

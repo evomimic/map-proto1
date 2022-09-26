@@ -1,19 +1,28 @@
 ---
 manifest_version: "1"
-name: forum
-uuid: 00000000-0000-0000-0000-000000000000
-properties: ~
-zomes: 
-  - name: profiles
-    bundled: ../../target/wasm32-unknown-unknown/release/profiles.wasm
-  - name: comments
-    bundled: ../../target/wasm32-unknown-unknown/release/comments.wasm
-  - name: reactions
-    bundled: ../../target/wasm32-unknown-unknown/release/reactions.wasm
-  - name: lobby
-    bundled: ../../target/wasm32-unknown-unknown/release/lobby.wasm
-  - name: topics
-    bundled: ../../target/wasm32-unknown-unknown/release/topics.wasm
-  - name: posts
-    bundled: ../../target/wasm32-unknown-unknown/release/posts.wasm
-
+name: mapp_proto1
+integrity:
+  uuid: 00000000-0000-0000-0000-000000000000
+  properties: ~
+  origin_time: 2022-02-11T23:05:19.470323Z
+  zomes:
+    - name: hc_zome_integrity_holonspace/holon
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_holonspace/holon.wasm
+    - name: hc_zome_integrity_metaspace_descriptor.wasm
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_metaspace_descriptor.wasm
+    - name: hc_zome_integrity_metaspace_exports.wasm
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_metaspace_exports.wasm
+    - name: hc_zome_integrity_metaspace_mapping.wasm
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_metaspace_mapping.wasm
+    - name: hc_zome_integrity_metaspace_mapping.wasm
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_property.wasm
+coordinator:
+  zomes:
+    - name: hc_zome_coordinator
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_coordinator.wasm
+      dependencies:
+        - name: hc_zome_integrity_holonspace_holon
+        - name: hc_zome_integrity_metaspace_descriptor
+        - name: hc_zome_integrity_metaspace_exports
+        - name: hc_zome_integrity_metaspace_mapping
+        - name: hc_zome_integrity_property
