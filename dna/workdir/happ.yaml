@@ -1,0 +1,16 @@
+---
+manifest_version: "1"
+name: map_proto1
+description: ~
+roles:
+  - id: map_proto1
+    provisioning:
+      strategy: create
+      deferred: false
+    dna:
+      bundled: "./map_proto1.dna"
+      properties: ~
+      uuid: ~
+      version: ~
+      clone_limit: 0
+
