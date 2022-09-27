@@ -14,4 +14,4 @@ derive_more = "0"
 hdi = "0.0.14"
 holo_hash = { version = "=0.0.30", features = ["encoding"] }
 
-# hc_zome_coordination_interface = {path = "../../../coordination/interface"}
+hc_zome_integrity_holonspace_holon = {path = "../../holonspace/holon"}

@@ -4,10 +4,11 @@ use hc_zome_integrity_metaspace_descriptor::CompositeDescriptor;
 
 pub struct PropertyMap<K,V> {
     pub identifying_properties: BTreeMap<K,V>,
+    //
 }
 
-pub struct PropertyDescriptorMap {
-    pub properties: CompositeDescriptor,
+pub struct PropertyDescriptorMap<T> {
+    pub properties: Vec<T>,
 }
 
 pub struct HolonRelationshipMap {

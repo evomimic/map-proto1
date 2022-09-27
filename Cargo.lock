@@ -531,16 +531,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "hc_zome_integrity_property"
-version = "0.0.1"
-dependencies = [
- "derive_more",
- "hdi",
- "holo_hash",
- "serde",
-]
-
-[[package]]
 name = "hdi"
 version = "0.0.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -874,6 +864,7 @@ name = "meta_mapping"
 version = "0.0.1"
 dependencies = [
  "derive_more",
+ "hc_zome_integrity_metaspace_descriptor",
  "hdi",
  "holo_hash",
  "serde",
