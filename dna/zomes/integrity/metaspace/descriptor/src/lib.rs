@@ -11,39 +11,45 @@ pub struct SemanticVersion {
     major: u8,
     minor: u8,
     patch: u8,
-    version: String,
 }
 
-
-pub struct TypeDescriptor {
-    pub uid: u8, // ?TODO: encode base64
-    pub name: String,
-    pub description: Description,
-    pub semantic: StringFormat, // IRI
-    pub version: SemanticVersion,
-    pub created_at: DateTime,
-    pub is_implemented: bool, // false means MAP defines but doesn't yet support this type
-    pub descriptor: Descriptor,
-}
-
-pub enum Descriptor {
+/*
+    TypeDescriptor is abstract definition representing any kind of TypeDescriptor
+*/
+pub enum TypeDescriptor {
     Holon(HolonDescriptor),
+    Collection(CollectionDescriptor),
+    Composite(CompositeDescriptor),
     Relationship(RelationshipDescriptor),
-    DependentType(DependentTypeDescriptor),
+    Boolean(BooleanDescriptor),
+    Integer(IntegerDescriptor),
+    String(StringDescriptor),
+    Enum(EnumDescriptor),
+}
+
+pub struct TypeHeader { // the shared attributes common to all Type Descriptors
+    uid: Uid,
+    type_name: String,
+    description: String,
+    semantic_type: String, // IRI?
+    version: SemanticVersion,
+    previous: TypeDescriptor, // the previous version of this descriptor (assumes linear versioning)
+    created_at: DateTime,
+    is_dependent: bool, // if true, cannot existing independent of parent object
+    is_implemented: bool, // false means MAP defines but doesn't yet support this type
 }
 
 pub struct HolonDescriptor {
-    pub properties: PropertyDescriptorMap,
-    pub identifying_properties: PropertyDescriptorMap,
+    header: TypeHeader,
+    identifying_properties: CompositeDescriptor,
+    properties: CompositeDescriptor,
 }
 
 pub struct RelationshipDescriptor {
-    id: String,
-    created_at: DateTime,
+    header: TypeHeader,
     from_role: RelationshipRole,
     to_role: RelationshipRole,
 }
-
 
 pub struct RelationshipRole {
     role_name: String,
@@ -72,65 +78,79 @@ struct FuzzyBoolean {
     value: UnitInterval, // zero = false, one = true
 }
 
-pub enum DependentTypeDescriptor {
-    BooleanDescriptor(BooleanDescriptor),
-    CollectionDescriptor(CollectionDescriptor),
-    CompositeDescriptor,
-    EnumDescriptor,
-    IntegerDescriptor(IntegerDescriptor<>),
-    StringDescriptor(StringDescriptor),
-}
-
 pub struct BooleanDescriptor {
+    header: TypeHeader,
     is_fuzzy: bool // if true, this property has FuzzyBoolean value, otherwise just true or false
 }
 
 pub struct CollectionDescriptor {
-    contains : TypeDescriptor,
+    header: TypeHeader,
+    contains_items_of_type : TypeDescriptor,
     min_items: u32,
     max_items: u32,
     unique_items: bool, // true means duplicate items are not allowed
     is_ordered: bool, // if items have an intrinsic order (e.g., is_ordered=false mathematical set)
 }
 
-pub struct IntegerDescriptor<T> {
+pub struct CompositeDescriptor {
+    header: TypeHeader,
+    properties: BtreeMap<String, DependentTypeDescriptor>,
+}
+
+/*
+    The following enum specifies the subset TypeDescriptors whose instances cannot exist independent
+    of a parent instance.
+
+    Dependent types don't have unique identifiers
+ */
+
+pub enum DependentTypeDescriptor {
+    Composite(CompositeDescriptor),
+    Collection(CollectionDescriptor), // but only for collections of Dependent Types
+    Boolean(BooleanDescriptor),
+    Integer(IntegerDescriptor),
+    String(StringDescriptor),
+    Enum(EnumDescriptor),
+}
+
+pub struct IntegerDescriptor {
+    header: TypeHeader,
     format: IntegerFormat,
+}
+
+pub enum IntegerFormat {
+    I8(IntegerBaseDescriptor < i8 > ),
+    I16(IntegerBaseDescriptor < i16 > ),
+    I32(IntegerBaseDescriptor <i32 > ),
+    I64(IntegerBaseDescriptor < i64 >),
+    I128(IntegerBaseDescriptor < i128 > ),
+    U8(IntegerBaseDescriptor < u8 > ),
+    U16(IntegerBaseDescriptor < u16 > ),
+    U32(IntegerBaseDescriptor <u32 > ),
+    U64(IntegerBaseDescriptor < u64 >),
+    U128(IntegerBaseDescriptor < u128 > ),
+}
+
+pub struct IntegerBaseDescriptor<T> {
     min_value: T,
     max_value: T,
 }
 
-pub enum IntegerFormat {
-    I8,
-    I16,
-    I32,
-    I64,
-    I128,
-    U8,
-    U16,
-    U32,
-    U64,
-    U128,
-}
-pub struct IntegerDescriptor {
-    format: IntegerFormat,
-    min_value: u8,
-    max_value: u8,
-}
-
-
 pub struct StringDescriptor {
-    min_length: u8,
-    max_length: u8,
+    header: TypeHeader,
+    min_length: u32,
+    max_length: u32,
     pattern: String,
-    format: StringFormats,
+    format: StringFormat,
 }
 
-pub enum StringFormats { // are these needed, or should, e.g., Email just be a Composite Type)
+pub enum StringFormat { // are these needed, or should, e.g., Email just be a Composite Type)
     Email,
     IdnEmail, // Internationalized Domain Name email containing non-ASCII script - e.g., Arabic, Chinese, or Cyrillic.
     Hostname,
     IdnHostname,
 }
+
 
 // EXAMPLE COMPOSITE TYPES
 pub struct FloatDescriptor {
