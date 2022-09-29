@@ -24,17 +24,17 @@ pub enum TypeDescriptor {
     Relationship(RelationshipDescriptor),
     Boolean(BooleanDescriptor),
     Integer(IntegerDescriptor),
-    String(StringDescriptor),
+    String(StringDescriptor), // TODO: check if enum variant names conflict with keywords/std types
     Enum(EnumDescriptor),
 }
 
 pub struct TypeHeader { // the shared attributes common to all Type Descriptors
-    uid: Uid,
+    uid: Uid, // factor this out into a separate Identifier type?
     type_name: String,
     description: String,
-    semantic_type: String, // IRI?
+    semantic_type: Option<String>, // IRI? Enum?
     version: SemanticVersion,
-    previous: TypeDescriptor, // the previous version of this descriptor (assumes linear versioning)
+    previous: Option<TypeDescriptor>, // the previous version of this descriptor (assumes linear versioning), Link? Vec<Option> for all versions?
     created_at: DateTime,
     is_dependent: bool, // if true, cannot existing independent of parent object
     is_implemented: bool, // false means MAP defines but doesn't yet support this type
@@ -44,12 +44,13 @@ pub struct HolonDescriptor {
     header: TypeHeader,
     identifying_properties: CompositeDescriptor,
     properties: CompositeDescriptor,
+    // add actions and relationships
 }
 
 pub struct RelationshipDescriptor {
     header: TypeHeader,
-    from_role: RelationshipRole,
-    to_role: RelationshipRole,
+    source_role: RelationshipRole,
+    target_role: RelationshipRole,
 }
 
 pub struct RelationshipRole {
@@ -69,7 +70,8 @@ pub enum RelationshipBindingRule {
 
 pub enum DeletionSemantic {
     Block, // prevent deletion of Holon if any Holons are related
-    Prop, // propagate deletion of Holon to related Holons
+    Propagate, // propagate deletion of Holon to related Holons
+    Allow, // do nothing with the related Holon
 
 }
 pub struct UnitInterval {
@@ -120,16 +122,16 @@ pub struct IntegerDescriptor {
 }
 
 pub enum IntegerFormat {
-    I8(IntegerBaseDescriptor < i8 > ),
-    I16(IntegerBaseDescriptor < i16 > ),
-    I32(IntegerBaseDescriptor <i32 > ),
-    I64(IntegerBaseDescriptor < i64 >),
-    I128(IntegerBaseDescriptor < i128 > ),
-    U8(IntegerBaseDescriptor < u8 > ),
-    U16(IntegerBaseDescriptor < u16 > ),
-    U32(IntegerBaseDescriptor <u32 > ),
-    U64(IntegerBaseDescriptor < u64 >),
-    U128(IntegerBaseDescriptor < u128 > ),
+    I8(IntegerBaseDescriptor<i8>),
+    I16(IntegerBaseDescriptor<i16>),
+    I32(IntegerBaseDescriptor<i32>),
+    I64(IntegerBaseDescriptor<i64>),
+    I128(IntegerBaseDescriptor<i128>),
+    U8(IntegerBaseDescriptor<u8>),
+    U16(IntegerBaseDescriptor<u16>),
+    U32(IntegerBaseDescriptor<u32>),
+    U64(IntegerBaseDescriptor<u64>),
+    U128(IntegerBaseDescriptor<u128>),
 }
 
 pub struct IntegerBaseDescriptor<T> {
@@ -155,10 +157,10 @@ pub enum StringFormat { // are these needed, or should, e.g., Email just be a Co
 
 // EXAMPLE COMPOSITE TYPES
 pub struct FloatDescriptor {
-    significand: IntegerProperty,
-    base: IntegerProperty,
-    exponent: IntegerProperty,
-    precision: IntegerProperty,
+    significand: IntegerDescriptor,
+    base: IntegerDescriptor,
+    exponent: IntegerDescriptor,
+    precision: IntegerDescriptor,
 }
 
 pub struct DateTimeDescriptor {
@@ -168,9 +170,9 @@ pub struct DateTimeDescriptor {
 }
 
 pub struct DateDescriptor {
-    date: IntegerProperty,
-    month: IntegerProperty,
-    year: IntegerProperty,
+    date: IntegerDescriptor,
+    month: IntegerDescriptor,
+    year: IntegerDescriptor,
 }
 
 pub struct TimeDescriptor {
