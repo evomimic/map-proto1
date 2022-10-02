@@ -6,8 +6,8 @@ integrity:
   properties: ~
   origin_time: 2022-02-11T23:05:19.470323Z
   zomes:
-    - name: hc_zome_integrity_holonspace/holon
-      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_holonspace/holon.wasm
+    - name: hc_zome_integrity_holonspace_holon
+      bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_holonspace_holon.wasm
     - name: hc_zome_integrity_metaspace_descriptor.wasm
       bundled: ../../../target/wasm32-unknown-unknown/release/hc_zome_integrity_metaspace_descriptor.wasm
     - name: hc_zome_integrity_metaspace_exports.wasm

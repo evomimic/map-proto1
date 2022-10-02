@@ -1,10 +1,11 @@
+use hdk::prelude::*;
+
 use std::collections::DateTime;
-use hc_zome_integrity_holonspace_holon::SemanticVersion;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Uid {
-    _id : u64,
+    uid : u64,
 }
 
 pub struct SemanticVersion {
