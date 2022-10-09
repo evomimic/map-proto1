@@ -1,11 +1,10 @@
 use std::collections::BTreeMap;
-use std::collections::DateTime;
-use hc_zome_integrity_holonspace_holon::SemanticVersion;
+use hdi::prelude::*;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Uid {
-    _id : u64,
+pub struct Uuid {
+    uuiid : u64,
 }
 
 pub struct SemanticVersion {
@@ -97,7 +96,7 @@ pub struct CollectionDescriptor {
 
 pub struct CompositeDescriptor {
     header: TypeHeader,
-    properties: BtreeMap<String, DependentTypeDescriptor>,
+    properties: BTreeMap<String, DependentTypeDescriptor>,
 }
 
 /*
