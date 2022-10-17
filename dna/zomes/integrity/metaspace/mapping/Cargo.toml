@@ -1,11 +1,11 @@
 [package]
-name = "meta_mapping"
+name = "hc_zome_integrity_metaspace_mapping"
 version = "0.0.1"
-authors = [ "Zeek" ]
+authors = [ "Steve", "Zeek" ]
 edition = "2021"
 
 [lib]
-name = "meta_mapping"
+name = "hc_zome_integrity_metaspace_mapping"
 crate-type = [ "cdylib", "rlib" ]
 
 [dependencies]

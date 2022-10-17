@@ -1,11 +1,11 @@
 [package]
-name = "meta_interface_exports"
+name = "hc_zome_metaspace_exports"
 version = "0.0.1"
-authors = [ "Zeek" ]
+authors = [ "Steve", "Zeek" ]
 edition = "2021"
 
 [lib]
-name = "meta_interface_exports"
+name = "hc_zome_meta_metaspace_exports"
 crate-type = [ "cdylib", "rlib" ]
 
 [dependencies]

@@ -1,7 +1,7 @@
 [package]
 name = "hc_zome_integrity_holonspace_holon"
 version = "0.0.1"
-authors = [ "Zeek" ]
+authors = [ "Steve", "Zeek" ]
 edition = "2021"
 
 [lib]
@@ -16,3 +16,4 @@ hdi = "0.0.14"
 holo_hash = { version = "=0.0.30", features = ["encoding"] }
 
 hc_zome_integrity_metaspace_descriptor = {path = "../../metaspace/descriptor"}
+hc_zome_integrity_metaspace_mapping = {path = "../../metaspace/mapping"}

@@ -1,7 +1,7 @@
 [package]
 name = "hc_zome_integrity_metaspace_descriptor"
 version = "0.0.1"
-authors = [ "Zeek" ]
+authors = [ "Steve", "Zeek" ]
 edition = "2021"
 
 [lib]
@@ -13,3 +13,4 @@ serde = "1"
 derive_more = "0"
 hdi = "0.0.14"
 holo_hash = { version = "=0.0.30", features = ["encoding"] }
+

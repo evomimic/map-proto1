@@ -5,6 +5,7 @@ members = [
     "dna/zomes/integrity/metaspace/descriptor",
     "dna/zomes/integrity/metaspace/exports",
     "dna/zomes/integrity/metaspace/mapping",
+    "dna/zomes/coordination/holons",
 ]
 
 [profile.dev]

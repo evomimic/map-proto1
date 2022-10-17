@@ -1,0 +1,18 @@
+[package]
+name = "hc_zome_coordination_holons"
+version = "0.0.1"
+authors = [ "Steve", "Zeek" ]
+edition = "2021"
+
+[lib]
+name = "hc_zome_coordination_holons"
+crate-type = [ "cdylib", "rlib" ]
+
+[dependencies]
+serde = "1"
+derive_more = "0"
+chrono = "0.4"
+hdk = "0.0.154"
+holo_hash = { version = "=0.0.30", features = ["encoding"] }
+
+hc_zome_integrity_metaspace_descriptor = {path = "../../integrity/metaspace/descriptor"}

@@ -2,9 +2,8 @@ use hdi::prelude::*;
 use std::collections::BTreeMap;
 // use hdi::prelude::hash_blake2b;
 // use hdk::prelude::holo_hash::*;
-use hdi::prelude::Timestamp;
+// use hdi::prelude::Timestamp;
 use hc_zome_integrity_metaspace_descriptor::*;
-use hc_zome_integrity_metaspace::mapping::{ PropertyMap, ActionMap, RelationshipMap, PropertyDescriptorMap };
 
 mod holon;
 pub use holon::Holon;
@@ -15,49 +14,53 @@ pub use holon::Holon;
 pub enum EntryTypes {
 #[entry_def()]
   Holon(Holon),
-
-}
-pub struct Holon {
-  uid: u8, // ?TODO: encode base64
-  namespace_id: u8,
-  local_id: u8,
-  created_at: Timestamp,
-  version: SemanticVersion,
-  properties: PropertyMap,
-  descriptor: HolonDescriptor,
-//  actions: ActionMap,
-  relationships: RelationshipMap
 }
 
-pub struct PropertyMap {
-  properties: BtreeMap<String,PropertyValue>
-}
-
-pub enum PropertyValue {
-  IntegerValue(IntegerValue<T>),
+pub enum PropertyValue<T> {
+  IntegerValue(IntegerValue),
   StringValue(StringValue),
-  EnumValue(EnumValue<T>),
+  // EnumValue(EnumValue<T>),
   BooleanValue(BooleanValue),
-  CompositeValue(CompositeValue),
+  CompositeValue(CompositeValue<T>),
   CollectionValue(CollectionValue<T>),
 }
-pub struct IntegerValue<T> {
+
+pub struct IntegerBaseValue<T> {
   descriptor: IntegerDescriptor,
-  value:T,
+  value: T,
 }
+
+pub enum IntegerValue {
+  I8(IntegerBaseValue<i8>),
+  I16(IntegerBaseValue<i16>),
+  I32(IntegerBaseValue<i32>),
+  I64(IntegerBaseValue<i64>),
+  I128(IntegerBaseValue<i128>),
+  U8(IntegerBaseValue<u8>),
+  U16(IntegerBaseValue<u16>),
+  U32(IntegerBaseValue<u32>),
+  U64(IntegerBaseValue<u64>),
+  U128(IntegerBaseValue<u128>),
+}
+
 pub struct StringValue {
   descriptor: StringDescriptor,
   value: String,
 }
 
-pub struct EnumValue<T> {
-  descriptor: EnumDescriptor,
-  value: T,
-}
+// pub struct EnumValue<T> {
+//   descriptor: EnumDescriptor,
+//   value: T,
+// }
 
-pub struct CompositeValue {
+// pub struct DateTimeValue {
+//   descriptor: DateTimeDescriptor,
+//   properties: BTreeMap<String, CompositeValue>,
+// }
+
+pub struct CompositeValue<T> {
   descriptor: CompositeDescriptor,
-  properties: BtreeMap<String,PropertyValue>
+  properties: BTreeMap<String, PropertyValue<T>>
 }
 
 pub struct BooleanValue {
@@ -66,7 +69,7 @@ pub struct BooleanValue {
   fuzzy_value: UnitInterval,
 }
 
-pub struct CollectionValue {
+pub struct CollectionValue<T> {
   descriptor: CollectionDescriptor,
   items:Vec<T>,
 }
@@ -80,7 +83,8 @@ pub struct UnitInterval {
 pub struct RelationshipMap { //TODO
 
 }
-#[hdk_extern]
-pub fn validate(_op: Op) -> ExternResult<ValidateCallbackResult> {
-  Ok(ValidateCallbackResult::Valid)
-}
+
+// #[hdk_extern]
+// pub fn validate(_op: Op) -> ExternResult<ValidateCallbackResult> {
+//   Ok(ValidateCallbackResult::Valid)
+// }

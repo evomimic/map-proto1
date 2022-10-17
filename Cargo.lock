@@ -509,7 +509,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "hc_zome_integrity_holonspace_holon"
+name = "hc_zome_coordination_holons"
 version = "0.0.1"
 dependencies = [
  "chrono",
@@ -521,7 +521,41 @@ dependencies = [
 ]
 
 [[package]]
+name = "hc_zome_integrity_holonspace_holon"
+version = "0.0.1"
+dependencies = [
+ "chrono",
+ "derive_more",
+ "hc_zome_integrity_metaspace_descriptor",
+ "hc_zome_integrity_metaspace_mapping",
+ "hdi",
+ "holo_hash",
+ "serde",
+]
+
+[[package]]
 name = "hc_zome_integrity_metaspace_descriptor"
+version = "0.0.1"
+dependencies = [
+ "derive_more",
+ "hdi",
+ "holo_hash",
+ "serde",
+]
+
+[[package]]
+name = "hc_zome_integrity_metaspace_mapping"
+version = "0.0.1"
+dependencies = [
+ "derive_more",
+ "hc_zome_integrity_metaspace_descriptor",
+ "hdi",
+ "holo_hash",
+ "serde",
+]
+
+[[package]]
+name = "hc_zome_metaspace_exports"
 version = "0.0.1"
 dependencies = [
  "derive_more",
@@ -847,27 +881,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5aa361d4faea93603064a027415f07bd8e1d5c88c9fbf68bf56a285428fd79ce"
 dependencies = [
  "autocfg",
-]
-
-[[package]]
-name = "meta_interface_exports"
-version = "0.0.1"
-dependencies = [
- "derive_more",
- "hdi",
- "holo_hash",
- "serde",
-]
-
-[[package]]
-name = "meta_mapping"
-version = "0.0.1"
-dependencies = [
- "derive_more",
- "hc_zome_integrity_metaspace_descriptor",
- "hdi",
- "holo_hash",
- "serde",
 ]
 
 [[package]]
