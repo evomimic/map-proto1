@@ -18,7 +18,8 @@ pub struct SemanticVersion {
 /*
     TypeDescriptor is abstract definition representing any kind of TypeDescriptor
 */
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[hdk_entry_helper]
+#[derive(Clone)]
 pub enum TypeDescriptor {
     Holon(HolonDescriptor),
     Collection(Box<CollectionDescriptor>),
@@ -28,6 +29,13 @@ pub enum TypeDescriptor {
     Integer(IntegerDescriptor),
     String(StringDescriptor), // TODO: check if enum variant names conflict with keywords/std types
     // Enum(EnumDescriptor),
+}
+
+#[hdk_entry_defs]
+#[unit_enum(UnitEntryTypes)]
+pub enum EntryTypes {
+    #[entry_def()]
+    TypeDescriptor(TypeDescriptor),
 }
 
 //pub struct DeprecatedTypeDescriptors
@@ -90,9 +98,9 @@ pub enum DeletionSemantic {
 pub struct UnitInterval {
     value: f32, // value can range from 0 to 1, inclusive
 }
-struct FuzzyBoolean {
-    value: UnitInterval, // zero = false, one = true
-}
+// struct FuzzyBoolean {
+//     value: UnitInterval, // zero = false, one = true
+// }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BooleanDescriptor {

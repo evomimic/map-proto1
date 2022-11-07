@@ -1,15 +1,16 @@
 [package]
-name = "hc_zome_metaspace_exports"
+name = "hc_zome_integrity_metaspace_exports"
 version = "0.0.1"
 authors = [ "Steve", "Zeek" ]
 edition = "2021"
 
 [lib]
-name = "hc_zome_meta_metaspace_exports"
+name = "hc_zome_integrity_metaspace_exports"
 crate-type = [ "cdylib", "rlib" ]
 
 [dependencies]
 serde = "1"
+derive-new = "0.5"
 derive_more = "0"
 hdi = "0.0.14"
 holo_hash = { version = "=0.0.30", features = ["encoding"] }

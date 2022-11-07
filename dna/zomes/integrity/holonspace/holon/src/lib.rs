@@ -3,7 +3,7 @@ use std::collections::BTreeMap;
 // use hdi::prelude::hash_blake2b;
 // use hdk::prelude::holo_hash::*;
 // use hdi::prelude::Timestamp;
-use hc_zome_integrity_metaspace_descriptor::*;
+use hc_zome_integrity_metaspace_descriptor::{IntegerDescriptor, StringDescriptor, CompositeDescriptor, BooleanDescriptor, CollectionDescriptor};
 
 mod holon;
 pub use holon::Holon;
