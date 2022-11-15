@@ -35,25 +35,10 @@ pub enum TypeDescriptorBuilder {
 
 // }
 
-//pub struct DeprecatedTypeDescriptors
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct TypeHeaderBuilder { // the shared attributes common to all Type Descriptors
-    uuid: Uuid, // factor this out into a separate Identifier type?
-    type_name: String,
-    description: String,
-    semantic_type: Option<String>, // IRI? Enum?
-    version: SemanticVersion,
-    previous: Box<Option<TypeDescriptorBuilder>>, // the previous version of this descriptor (assumes linear versioning), Link? Vec<Option> for all versions?
-    created_at: Timestamp,
-    is_dependent: bool, // if true, cannot existing independent of parent object
-    is_implemented: bool, // false means MAP defines but doesn't yet support this type
-}
 
 #[derive(new, Default, Debug, Clone, Serialize, Deserialize)]
 pub struct HolonDescriptorBuilder {
-    test_build: TestBuild
-    // header: Box<TypeHeaderBuilder>,
+    header: Box<TypeHeader>,
     // identifying_properties: Box<CompositeDescriptorBuilder>,
     // properties: Box<CompositeDescriptorBuilder>,
     // add actions and relationships

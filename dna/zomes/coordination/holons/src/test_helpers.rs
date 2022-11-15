@@ -1,11 +1,11 @@
 use hdk::prelude::*;
 use derive_new::new;
 
-#[derive(new, Default, Debug)]
-pub struct TestBuild {
-    #[new(value = "test_build")]
-    test_build: String,
-}
+// #[derive(new, Default, Debug)]
+// pub struct TestBuild {
+//     #[new(value = "test_build")]
+//     test_build: String,
+// }
 
 pub fn create_test_entry(input: TestEntry) -> ExternResult<EntryHash> {
   create_entry(string_target.clone())?;

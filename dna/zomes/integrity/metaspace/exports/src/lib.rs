@@ -11,7 +11,7 @@ pub enum EntryTypes {
     #[entry_def()]
     MetaSpaceState(MetaSpaceState),
     #[entry_def()]
-    Branch(Branch),
+    Branch(BranchState),
     #[entry_def()]
     TestEntry(TestEntry),
     #[entry_def()]
@@ -25,7 +25,7 @@ pub struct MetaSpaceState {
 }
 
 #[hdk_entry_helper]
-pub struct Branch {
+pub struct BranchState {
     id: String,
     name: String,
     //meta_data

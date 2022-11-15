@@ -44,10 +44,7 @@ pub enum OpResult {
     OpReturnType,
 }
 
-pub enum ObjectId {
-    Bytes(u8),
-    String(String)
-}
+pub type ObjectId = u64;
 
 struct TypeDescriptorBuilderInput {
     metaspace_id: ObjectId,
@@ -88,7 +85,7 @@ struct TypeDescriptorBuilderInput {
 pub fn commit_typedescriptor(input: TypeDescriptorBuilderInput) -> ExternResult<ActionHash> {
     let descriptor = match input.descriptor_type {
         TypeDescriptor::Holon(_) => { let builder = HolonDescriptorBuilder::default();
-                                        TestHolonDescriptor::new(builder)
+                                        HolonDescriptor::new(builder)
                                     }
         _ => { wasm_error!(
                 WasmErrorInner::Guest(String::from("Only testing Holon"))

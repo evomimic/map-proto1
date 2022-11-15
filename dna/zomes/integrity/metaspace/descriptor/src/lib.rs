@@ -22,12 +22,12 @@ pub struct SemanticVersion {
 #[derive(Clone)]
 pub enum TypeDescriptor {
     Holon(HolonDescriptor),
-    Collection(Box<CollectionDescriptor>),
-    Composite(CompositeDescriptor),
-    Relationship(RelationshipDescriptor),
-    Boolean(BooleanDescriptor),
-    Integer(IntegerDescriptor),
-    String(StringDescriptor), // TODO: check if enum variant names conflict with keywords/std types
+    // Collection(Box<CollectionDescriptor>),
+    // Composite(CompositeDescriptor),
+    // Relationship(RelationshipDescriptor),
+    // Boolean(BooleanDescriptor),
+    // Integer(IntegerDescriptor),
+    // String(StringDescriptor), // TODO: check if enum variant names conflict with keywords/std types
     // Enum(EnumDescriptor),
 }
 
@@ -42,22 +42,22 @@ pub enum EntryTypes {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TypeHeader { // the shared attributes common to all Type Descriptors
-    uuid: Uuid, // factor this out into a separate Identifier type?
+    // uuid: Uuid, // factor this out into a separate Identifier type?
     type_name: String,
     description: String,
-    semantic_type: Option<String>, // IRI? Enum?
-    version: SemanticVersion,
-    previous: Box<Option<TypeDescriptor>>, // the previous version of this descriptor (assumes linear versioning), Link? Vec<Option> for all versions?
-    created_at: Timestamp,
-    is_dependent: bool, // if true, cannot existing independent of parent object
-    is_implemented: bool, // false means MAP defines but doesn't yet support this type
+    // semantic_type: Option<String>, // IRI? Enum?
+    // version: SemanticVersion,
+    // previous: Box<Option<TypeDescriptor>>, // the previous version of this descriptor (assumes linear versioning), Link? Vec<Option> for all versions?
+    // created_at: Timestamp,
+    // is_dependent: bool, // if true, cannot existing independent of parent object
+    // is_implemented: bool, // false means MAP defines but doesn't yet support this type
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HolonDescriptor {
     header: Box<TypeHeader>,
-    identifying_properties: Box<CompositeDescriptor>,
-    properties: Box<CompositeDescriptor>,
+    // identifying_properties: Box<CompositeDescriptor>,
+    // properties: Box<CompositeDescriptor>,
     // add actions and relationships
 }
 

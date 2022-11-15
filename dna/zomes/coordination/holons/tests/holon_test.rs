@@ -19,9 +19,16 @@ pub async fn test_commmit_typedescriptor() {
 
   let (conductor, agent, cell) = setup_conductor().await;
 
-  let test_string = "This is a test string";
+  let type_header = TypeHeader {
+    name: "This is a test HolonType",
+    description: "Test description",
+  };
 
-  let test_builder = HolonDescriptorBuilder::new(test_string); 
+  let descriptor = HolonDescriptor {
+    header: type_header
+  };
+
+  let test_builder = HolonDescriptor::new(descriptor); 
 
   let builder_input = TypeDescriptorBuilderInput {
     metaspace_id: ObjectId::String("12345"),
