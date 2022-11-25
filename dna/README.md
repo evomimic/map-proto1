@@ -1,4 +1,4 @@
-# DNA Folder
-This folder contains the zome definitions so that code will be executed in the Holochain Conductor.
+# DEPRECATED! DNA Folder
+This folder contains the combined DNA for multiple hApps. Containts of this folder should be moved to new compliant folders.
 
 
