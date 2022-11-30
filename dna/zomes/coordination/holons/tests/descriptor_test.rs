@@ -2,17 +2,47 @@
 
 use std::collections::BTreeMap;
 use futures::future;
-use hc_zome_coordination_holons::HolonDescriptorBuilder;
+use hc_zome_coordination_holons::{DescriptorBuilder, HolonDescriptorBuilder, TypeDescriptorBuilder};
+
 use hdk::prelude::*;
 use holo_hash::AgentPubKey;
 use holo_hash::AnyLinkableHash;
-use holo_hash::AnyLinkableHashB64;
+// use holo_hash::AnyLinkableHashB64;
 use holochain::sweettest::{
   SweetAgents, SweetAppBatch, SweetCell, SweetConductor, SweetConductorBatch, SweetDnaFile,
 };
 
 const DNA_FILEPATH: &str = "../../../workdir/dna/map_proto1.dna";
 
+pub async fn test_create_holondescriptorbuilder() {
+    let (conductor, agent, cell) = setup_conductor().await;
+    
+}
+
+
+pub async fn test_create_holondescriptorbuilder() {
+    let (conductor, agent, cell) = setup_conductor().await;
+
+    let type_header = TypeHeader {
+      name: "This is a test HolonType",
+      description: "Test description",
+    };
+  
+    let descriptor = HolonDescriptor {
+      header: type_header
+    };
+  
+    let test_builder = HolonDescriptor::new(descriptor);  
+  
+    let builder_input = TypeDescriptorBuilderInput {
+      metaspace_id: ObjectId::String("12345"),
+      branch_id: ObjectId::String("a"),
+      descriptor_type: TypeDescriptor::Holon(test_builder)
+    };
+
+    let holon_descriptor = DescriptorBuilder::create(builder_input).unwrap();
+    println!(holon_descriptor)
+}
 
 #[tokio::test(flavor = "multi_thread")]
 pub async fn test_commmit_typedescriptor() {

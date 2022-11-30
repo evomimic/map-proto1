@@ -1,21 +1,32 @@
 use hdk::prelude::*;
 use derive_new::new;
 
+use crate::TypeDescriptorBuilder;
+
 // #[derive(new, Default, Debug)]
 // pub struct TestBuild {
 //     #[new(value = "test_build")]
 //     test_build: String,
 // }
 
-pub fn create_test_entry(input: TestEntry) -> ExternResult<EntryHash> {
+pub fn test_create_entry(input: TestEntry) -> ExternResult<EntryHash> {
   create_entry(string_target.clone())?;
   let entry_hash = hash_entry(input)?;
   Ok(entry_hash)
 }
 
-pub fn create_test_descriptor(input: TestDescriptor) -> ExternResult<ActionHash> {
+pub fn test_create_descriptor(input: TestDescriptor) -> ExternResult<ActionHash> {
     create_entry(input)
 }
+
+pub fn test_create_descriptorbuilder(input: TypeDescriptorBuilderInput) -> ExternResult<TypeDescriptorBuilder> {
+    match input.descriptor_type {
+        TypeDescriptor::Holon(_) => Ok(TypeDescriptorBuilder::Holon(HolonDescriptorBuilder::default())),
+        _ => Err(wasm_error!(WasmErrorInner::Guest(format!(
+                "Only testing Holon",
+              ))))
+    }
+  }
 
 
 // pub fn get_entry_by_actionhash(action_hash: ActionHash) -> ExternResult<TestEntry> {

@@ -1,6 +1,8 @@
 use std::collections::BTreeMap;
+use derive_new::new;
 use hdi::prelude::*;
-use hdi::prelude::Timestamp;
+// use hdi::prelude::Timestamp;
+
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "camelCase")]
@@ -53,7 +55,7 @@ pub struct TypeHeader { // the shared attributes common to all Type Descriptors
     // is_implemented: bool, // false means MAP defines but doesn't yet support this type
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, new, Clone, Serialize, Deserialize)]
 pub struct HolonDescriptor {
     header: Box<TypeHeader>,
     // identifying_properties: Box<CompositeDescriptor>,

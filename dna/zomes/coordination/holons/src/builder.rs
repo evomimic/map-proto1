@@ -1,7 +1,7 @@
 
 use derive_new::new;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, new, Default, Clone, Serialize, Deserialize)]
 pub enum TypeDescriptorBuilder {
     Holon(HolonDescriptorBuilder),
     // Collection(Box<CollectionDescriptorBuilder>),
@@ -12,6 +12,12 @@ pub enum TypeDescriptorBuilder {
     // String(StringDescriptorBuilder), // TODO: check if enum variant names conflict with keywords/std types
     // // Enum(EnumDescriptor),
 }
+
+//
+// impl TypeDescriptorBuilder {
+//     fn new(&self) -> Self;
+// }
+//
 
 // enum State {
 //     New, 

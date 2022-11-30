@@ -14,7 +14,7 @@ derive-new = "0.5"
 derive_more = "0"
 chrono = "0.4"
 hdk = "0.0.154"
-holo_hash = { version = "=0.0.30", features = ["encoding"] }
+holo_hash = { version = "=0.0.32", features = ["encoding"] }
 
 hc_zome_integrity_metaspace_descriptor = {path = "../../integrity/metaspace/descriptor"}
 hc_zome_integrity_metaspace_exports = {path = "../../integrity/metaspace/exports"}

@@ -23,20 +23,20 @@ pub struct Holon {
 // impl<T> Holon<T> 
 // where T: Description + ?Sized
 // {
-//     pub fn builder() -> HolonBuilder {
+//     pub fn build() -> HolonBuilder {
 //         HolonBuilder::default()
 //     }
 // }
 
-struct HolonInitParams<K,V> {
-    namespace_id: u8,
-    local_id: u8,
-    version: SemanticVersion,
-    properties: PropertyMap<K,V>,
-    descriptor: HolonDescriptor,
-    actions: ActionMap,
-    relationships: HolonRelationshipMap
-}
+// struct HolonInitParams<K,V> {
+//     namespace_id: u8,
+//     local_id: u8,
+//     version: SemanticVersion,
+//     properties: PropertyMap<K,V>,
+//     descriptor: HolonDescriptor,
+//     actions: ActionMap,
+//     relationships: HolonRelationshipMap
+// }
 
 // #[derive(Default)]
 // pub struct HolonBuilder<K,V> {
