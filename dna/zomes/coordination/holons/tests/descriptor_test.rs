@@ -14,14 +14,24 @@ use holochain::sweettest::{
 
 const DNA_FILEPATH: &str = "../../../workdir/dna/map_proto1.dna";
 
-pub async fn test_create_holondescriptorbuilder() {
-    let (conductor, agent, cell) = setup_conductor().await;
-    
+#[tokio::test(flavor = "multi_thread")]
+pub async fn test_create_holonbuilder() {
+  
+  let holon_builder = HolonBuilder::new(
+    1,
+    2,
+    SemanticVersion { major: 3, minor: 2, patch: 1 },
+    PropertyMap::default(),
+    HolonDescriptor::new(Box::new(TypeHeader { type_name: "example_type_name".to_string(), description: "example_description".to_string() })),
+    ActionMap::new("example_action".to_string()),
+    HolonRelationshipMap::new("example_relationship".to_string())
+  );
+  
+  prinltln!(holon_builder)
 }
 
-
+#[tokio::test(flavor = "multi_thread")]
 pub async fn test_create_holondescriptorbuilder() {
-    let (conductor, agent, cell) = setup_conductor().await;
 
     let type_header = TypeHeader {
       name: "This is a test HolonType",
@@ -100,7 +110,8 @@ pub async fn test_commmit_typedescriptor() {
 //   assert_eq!("test".to_string(), retrieval.example_field);
 // }
 
-/// Mock Conductor
+
+/// MOCK CONDUCTOR
 
 async fn setup_conductor() -> (SweetConductor, AgentPubKey, SweetCell) {
   let dna = SweetDnaFile::from_bundle(std::path::Path::new(DNA_FILEPATH))

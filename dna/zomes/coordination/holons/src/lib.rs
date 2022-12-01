@@ -81,18 +81,18 @@ struct TypeDescriptorBuilderInput {
 //     }
 // }
 
-#[hdk_extern]
-pub fn commit_typedescriptor(input: TypeDescriptorBuilderInput) -> ExternResult<ActionHash> {
-    let descriptor = match input.descriptor_type {
-        TypeDescriptor::Holon(_) => { let builder = HolonDescriptorBuilder::default();
-                                        HolonDescriptor::new(builder)
-                                    }
-        _ => { wasm_error!(
-                WasmErrorInner::Guest(String::from("Only testing Holon"))
-              ) }
-    }?;
-    create_entry(descriptor)
-}
+// #[hdk_extern]
+// pub fn commit_typedescriptor(input: TypeDescriptorBuilderInput) -> ExternResult<ActionHash> {
+//     let descriptor = match input.descriptor_type {
+//         TypeDescriptor::Holon(_) => { let builder = HolonDescriptorBuilder::default();
+//                                         HolonDescriptor::new(builder)
+//                                     }
+//         _ => { wasm_error!(
+//                 WasmErrorInner::Guest(String::from("Only testing Holon"))
+//               ) }
+//     }?;
+//     create_entry(descriptor)
+// }
 
 
 /// TEST HELPERS
@@ -101,7 +101,6 @@ pub fn commit_typedescriptor(input: TypeDescriptorBuilderInput) -> ExternResult<
 pub fn create_test_entry(input: TestEntry) -> ExternResult<ActionHash> {
     test_helpers::create_test_entry(input)
 }
-
 
 
 

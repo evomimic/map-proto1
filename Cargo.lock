@@ -539,6 +539,7 @@ name = "hc_zome_integrity_holonspace_holon"
 version = "0.0.1"
 dependencies = [
  "chrono",
+ "derive-new",
  "derive_more",
  "hc_zome_integrity_metaspace_descriptor",
  "hc_zome_integrity_metaspace_mapping",
@@ -573,6 +574,7 @@ dependencies = [
 name = "hc_zome_integrity_metaspace_mapping"
 version = "0.0.1"
 dependencies = [
+ "derive-new",
  "derive_more",
  "hc_zome_integrity_metaspace_descriptor",
  "hdi 0.0.14",

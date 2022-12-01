@@ -9,7 +9,7 @@ use hdi::prelude::*;
 pub struct Uuid {
     uuid : u64,
 }
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Default, Clone, Serialize, Deserialize)]
 pub struct SemanticVersion {
     major: u8,
     minor: u8,
@@ -42,7 +42,7 @@ pub enum EntryTypes {
 
 //pub struct DeprecatedTypeDescriptors
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, new, Clone, Serialize, Deserialize)]
 pub struct TypeHeader { // the shared attributes common to all Type Descriptors
     // uuid: Uuid, // factor this out into a separate Identifier type?
     type_name: String,
