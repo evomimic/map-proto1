@@ -1,0 +1,16 @@
+[package]
+name = "hc_zome_coordinator_holon_impl"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+name = "hc_zome_coordinator_holon_impl"
+
+[dependencies]
+hdk = { workspace = true }
+
+serde = { workspace = true }
+
+hc_zome_coordinator_holon_api = { workspace = true }
+hc_zome_integrity_holon = { workspace = true }

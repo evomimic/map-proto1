@@ -1,0 +1,1 @@
+// put the trait definition for get_all_holon_types() here
