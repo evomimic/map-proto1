@@ -1,0 +1,17 @@
+---
+manifest_version: "1"
+name: map-proto1
+integrity:
+  uuid: 00000000-0000-0000-0000-000000000000
+  properties: ~
+  origin_time: 2022-02-11T23:05:19.470323Z
+  zomes:
+    - name: hc_zome_integrity_type_desc
+      bundled: ../target/wasm32-unknown-unknown/release/hc_zome_integrity_type_desc.wasm
+
+coordinator:
+  zomes:
+    - name: hc_zome_coordinator_type_desc_api
+      bundled: ../target/wasm32-unknown-unknown/release/hc_zome_coordinator_type_desc_api.wasm
+      dependencies:
+        - name: hc_zome_integrity_type_desc
