@@ -12,4 +12,4 @@ hdk = { workspace = true }
 
 serde = { workspace = true }
 hc_zome_integrity_type_desc = { workspace = true }
-
+hc_zome_coordinator_type_desc_impl = { workspace = true }

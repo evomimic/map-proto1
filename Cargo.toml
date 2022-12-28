@@ -8,6 +8,7 @@ opt-level = "z"
 members = [
     "crates/coordinator-zomes/apis/*",
     "crates/coordinator-zomes/impls/*",
+    "crates/coordinator-zomes/externs/*",
     "crates/integrity-zomes/*",
 
 ]
@@ -30,8 +31,11 @@ path = "crates/integrity-zomes/holon_integ"
 [workspace.dependencies.hc_zome_integrity_type_desc]
 path = "crates/integrity-zomes/type_desc_integ"
 
-[workspace.dependencies.hc_zome_coordinator_type_desc_coord_impl]
+[workspace.dependencies.hc_zome_coordinator_type_desc_impl]
 path = "crates/coordinator-zomes/impls/type_desc_coord_impl"
 
-[workspace.dependencies.hc_zome_coordinator_holon__impl]
+[workspace.dependencies.hc_zome_coordinator_holon_impl]
 path = "crates/coordinator-zomes/impls/holon_coord_impl"
+
+[workspace.dependencies.hc_zome_coordinator_externs]
+path = "crates/coordinator-zomes/externs"
