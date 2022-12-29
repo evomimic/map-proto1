@@ -346,6 +346,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "derive-new"
+version = "0.5.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3418329ca0ad70234b9735dc4ceed10af4df60eff9c8e7b06cb5e520d92c3535"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "derive_more"
 version = "0.99.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -479,6 +490,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "hc_zome_coordinator_externs"
+version = "0.1.0"
+dependencies = [
+ "hc_zome_coordinator_type_desc_api",
+ "hc_zome_coordinator_type_desc_impl",
+ "hc_zome_integrity_type_desc",
+ "hdk",
+ "serde",
+]
+
+[[package]]
 name = "hc_zome_coordinator_holon_api"
 version = "0.0.1"
 dependencies = [
@@ -510,6 +532,7 @@ dependencies = [
 name = "hc_zome_coordinator_type_desc_impl"
 version = "0.1.0"
 dependencies = [
+ "derive-new",
  "hc_zome_coordinator_type_desc_api",
  "hc_zome_integrity_type_desc",
  "hdk",
@@ -530,6 +553,7 @@ dependencies = [
 name = "hc_zome_integrity_type_desc"
 version = "0.1.0"
 dependencies = [
+ "derive-new",
  "hdi",
  "hdk",
  "serde",

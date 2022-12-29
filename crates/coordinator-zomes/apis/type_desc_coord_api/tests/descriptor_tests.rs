@@ -1,18 +1,18 @@
-#![warn(warnings)]
+// #![warn(warnings)]
 
-use std::collections::BTreeMap;
-use futures::future;
-use hc_zome_coordination_holons::{DescriptorBuilder, HolonDescriptorBuilder, TypeDescriptorBuilder};
+// use std::collections::BTreeMap;
+// use futures::future;
 
-use hdk::prelude::*;
-use holo_hash::AgentPubKey;
-use holo_hash::AnyLinkableHash;
-// use holo_hash::AnyLinkableHashB64;
-use holochain::sweettest::{
-  SweetAgents, SweetAppBatch, SweetCell, SweetConductor, SweetConductorBatch, SweetDnaFile,
-};
 
-const DNA_FILEPATH: &str = "../../../workdir/dna/map_proto1.dna";
+// use hdk::prelude::*;
+// use holo_hash::AgentPubKey;
+// use holo_hash::AnyLinkableHash;
+// // use holo_hash::AnyLinkableHashB64;
+// use holochain::sweettest::{
+//   SweetAgents, SweetAppBatch, SweetCell, SweetConductor, SweetConductorBatch, SweetDnaFile,
+// };
+
+// const DNA_FILEPATH: &str = "../../../workdir/dna/map_proto1.dna";
 
 // pub async fn test_create_holondescriptorbuilder() {
 //     let (conductor, agent, cell) = setup_conductor().await;
@@ -157,25 +157,25 @@ const DNA_FILEPATH: &str = "../../../workdir/dna/map_proto1.dna";
 // }
 
 
-/// Mock Conductor
+// Mock Conductor
 
-async fn setup_conductor() -> (SweetConductor, AgentPubKey, SweetCell) {
-  let dna = SweetDnaFile::from_bundle(std::path::Path::new(DNA_FILEPATH))
-    .await
-    .unwrap();
+// async fn setup_conductor() -> (SweetConductor, AgentPubKey, SweetCell) {
+//   let dna = SweetDnaFile::from_bundle(std::path::Path::new(DNA_FILEPATH))
+//     .await
+//     .unwrap();
 
-  let mut conductor = SweetConductor::from_standard_config().await;
+//   let mut conductor = SweetConductor::from_standard_config().await;
 
-  let holo_core_agent = SweetAgents::one(conductor.keystore()).await;
-  let app = conductor
-    .setup_app_for_agent("app", holo_core_agent.clone(), &[dna.clone()])
-    .await
-    .unwrap();
+//   let holo_core_agent = SweetAgents::one(conductor.keystore()).await;
+//   let app = conductor
+//     .setup_app_for_agent("app", holo_core_agent.clone(), &[dna.clone()])
+//     .await
+//     .unwrap();
 
-  let cell = app.into_cells()[0].clone();
+//   let cell = app.into_cells()[0].clone();
 
-  let agent_hash = holo_core_agent.into_inner();
-  let agent = AgentPubKey::from_raw_39(agent_hash).unwrap();
+//   let agent_hash = holo_core_agent.into_inner();
+//   let agent = AgentPubKey::from_raw_39(agent_hash).unwrap();
 
-  (conductor, agent, cell)
-}
+//   (conductor, agent, cell)
+// }

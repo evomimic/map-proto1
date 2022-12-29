@@ -2,6 +2,7 @@
 pub mod descriptor {
     use hdi::prelude::EntryHash;
     use hdi::prelude::*;
+    use derive_new::new;
     use serde::Deserialize;
     use serde::Serialize;
     use std::collections::BTreeMap;
@@ -67,29 +68,30 @@ pub mod descriptor {
     }
 
 
-    #[derive(Serialize, Deserialize, Debug, Clone)]
+    #[derive(Serialize, Deserialize, Debug, Clone, new)]
     #[serde(rename_all = "camelCase")]
     pub struct TypeHeader {
         // the shared attributes common to all Type Descriptors
-        oid: Oid,
-        type_name: String,
-        base_type: BaseType,
-        description: String,
-        semantic_type: Option<String>,
-        // IRI? Enum?
-        version: SemanticVersion,
-        // previous: Option<TypeDescriptor>,
-        // the previous version of this descriptor (assumes linear versioning), Link? Vec<Option> for all versions?
-        // created_at: DateTime<FixedOffset>, -- this can be derived from create action, needn't be stored here
-        is_dependent: bool, // if true, cannot existing independent of parent object
+        // oid: Oid,
+        pub type_name: String,
+        // base_type: BaseType,
+        pub description: String,
+        // semantic_type: Option<String>,
+        // // IRI? Enum?
+        // version: SemanticVersion,
+        // // previous: Option<TypeDescriptor>,
+        // // the previous version of this descriptor (assumes linear versioning), Link? Vec<Option> for all versions?
+        // // created_at: DateTime<FixedOffset>, -- this can be derived from create action, needn't be stored here
+        // is_dependent: bool, // if true, cannot existing independent of parent object
     }
 
     #[hdk_entry_helper]
+    #[derive(new)]
     #[serde(rename_all = "camelCase")]
     pub struct HolonDescriptor {
-        header: TypeHeader,
-        identifying_properties: Vec<EntryHash>,
-        properties: BTreeMap<String, DependentTypeDescriptor>,
+       pub header: TypeHeader,
+        // identifying_properties: Vec<EntryHash>,
+        // properties: BTreeMap<String, DependentTypeDescriptor>,
         // add actions and relationships
     }
 

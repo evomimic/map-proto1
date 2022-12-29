@@ -1,7 +1,6 @@
 // put the trait definition for get_all_holon_types() here
-
-use hc_zome_integrity_metaspace_descriptor::*;
-use hc_zome_integrity_metaspace_descriptor::HolonDescriptor;
+use hdk::prelude::*;
+use hc_zome_integrity_type_desc::descriptor::descriptor::HolonDescriptor;
 
 
 pub trait DescriptorQueries {
@@ -28,18 +27,3 @@ pub trait DescriptorQueries {
 // }
 
 
-
-#[cfg(test)]
-#[allow(clippy::unwrap_used)]
-#[allow(non_snake_case)]
-mod tests {
-
-  use super::*; // allows testing of private functions
-
-  #[test]
-  fn test_get_all_holon_types() {
-    let descriptors = HolonDescriptor::get_all_holontypes();
-    println!(descriptors)
-  }
-
-}
