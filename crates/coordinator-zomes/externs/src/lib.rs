@@ -6,6 +6,6 @@ use hc_zome_coordinator_type_desc_impl::queries_impl::QueryController;
 
 
 #[hdk_extern]
-pub fn get_all_holontypes(_input: String) -> ExternResult<Vec<HolonDescriptor>> {
+pub fn get_all_holontypes(_:()) -> ExternResult<Vec<HolonDescriptor>> {
     QueryController::get_all_holontypes()
 }

@@ -3,6 +3,8 @@ use hdk::prelude::*;
 use hc_zome_coordinator_type_desc_api::queries::DescriptorQueries;
 use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, TypeHeader};
 
+
+#[derive(Debug,)]
 pub struct QueryController;
 
 // put the implementation for get_all_holon_types() for QueryController here
@@ -24,7 +26,7 @@ impl DescriptorQueries for QueryController {
         };
 
         let descriptors_vec = vec![descriptor1, descriptor2, descriptor3];
-
+        
        Ok(descriptors_vec)
     }
 }
@@ -39,7 +41,7 @@ mod tests {
   #[test]
   fn test_get_all_holon_types() {
     let descriptors = QueryController::get_all_holontypes();
-    println!(descriptors)
+    println!("{:?}", descriptors);
   }
 
 }
