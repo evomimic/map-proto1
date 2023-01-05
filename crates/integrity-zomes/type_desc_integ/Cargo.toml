@@ -9,7 +9,7 @@ name = "hc_zome_integrity_type_desc"
 
 [dependencies]
 hdk = { workspace = true }
-hdi = { workspace = true}
-
+hdi = { workspace = true }
+derive-new = { workspace = true }
 serde = { workspace = true }
 
