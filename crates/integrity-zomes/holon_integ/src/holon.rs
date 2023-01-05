@@ -3,7 +3,7 @@ pub mod holon {
     use std::collections::BTreeMap;
     // use hdi::prelude::hash_blake2b;
 // use hdk::prelude::holo_hash::*;
-    use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion};
+    use hc_zome_integrity_type_desc::descriptor::{HolonDescriptor, IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion};
 
     //use hdk::prelude::EntryHash;
 

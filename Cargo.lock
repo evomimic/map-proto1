@@ -523,6 +523,7 @@ dependencies = [
 name = "hc_zome_coordinator_type_desc_api"
 version = "0.1.0"
 dependencies = [
+ "derive-new",
  "hc_zome_integrity_type_desc",
  "hdk",
  "serde",
