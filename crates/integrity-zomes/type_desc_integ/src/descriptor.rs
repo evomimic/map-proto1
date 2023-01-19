@@ -54,15 +54,15 @@ pub enum BaseType {
     TypeDescriptor is abstract definition representing any kind of TypeDescriptor
 */
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub enum TypeDescriptor {
-    //Holon(Box<HolonDescriptor>),
+    Holon(Box<HolonDescriptor>),
     //Collection(CollectionDescriptor),
     //Composite(CompositeDescriptor),
     //Relationship(RelationshipDescriptor),
-    Boolean(Box<BooleanDescriptor>),
+    // Boolean(Box<BooleanDescriptor>),
     //Integer(Box<IntegerDescriptor>),
-    String(Box<StringDescriptor>),
+    // String(Box<StringDescriptor>),
     // TODO: check if enum variant names conflict with keywords/std types
     // Enum(EnumDescriptor),
 }
@@ -86,7 +86,7 @@ pub struct TypeHeader {
 }
 
 #[hdk_entry_helper]
-#[derive(new)]
+#[derive(Default, Clone, new)]
 #[serde(rename_all = "camelCase")]
 pub struct HolonDescriptor {
     pub header: TypeHeader,
