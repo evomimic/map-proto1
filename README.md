@@ -6,5 +6,5 @@ For the use cases in scope for the initial slice, see [wiki](https://github.com/
 ## Tech Stack:
 * rust 1.66.0
 * holochain 0.0.175
-* hdk 0.0.162
+* hdk 0.0.163
 
