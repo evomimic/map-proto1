@@ -1,13 +1,20 @@
 let
-  holonixPath = (import ./nix/sources.nix).holonix; # points to the current state of the Holochain repository
+  holonixRev = "8dea7f5e572128fde79cb939ad048531fae2d436";
+
+  holonixPath = builtins.fetchTarball "https://github.com/holochain/holonix/archive/${holonixRev}.tar.gz";
   holonix = import (holonixPath) {
-    holochainVersionId = "v0_0_136"; # specifies the Holochain version
+    rustVersion = {
+      track = "stable";
+      version = "1.64.0";
+    };
+    holochainVersionId = "v0_0_165";
   };
   nixpkgs = holonix.pkgs;
 in nixpkgs.mkShell {
   inputsFrom = [ holonix.main ];
   packages = with nixpkgs; [
+    cargo-release
+    cargo-watch
     niv
-    # any additional packages needed for this project, e. g. Nodejs
   ];
 }
