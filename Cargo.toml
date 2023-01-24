@@ -18,7 +18,7 @@ members = [
 
 [workspace.dependencies]
 hdi = "0.1"
-hdk = "0.0.162"
+hdk = {version = "0.0.163", features = ["encoding"] }
 serde = "1"
 derive-new = "0.5"
 

@@ -1,11 +1,11 @@
 
 pub mod descriptor {
-    use hdi::prelude::EntryHash;
+    // use hdi::prelude::EntryHash;
     use hdi::prelude::*;
     use derive_new::new;
     use serde::Deserialize;
     use serde::Serialize;
-    use std::collections::BTreeMap;
+    // use std::collections::BTreeMap;
     // TODO: add support for DateTime type via chrono and/or chrono-tz
     //    use self::chrono::prelude::*;
 
