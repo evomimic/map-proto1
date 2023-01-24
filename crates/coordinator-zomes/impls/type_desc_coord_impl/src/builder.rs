@@ -1,20 +1,41 @@
 
-use::hc_zome_coordinator_type_desc_api::HolonDescriptorBuilderImpl;
+use::hc_zome_coordinator_type_desc_api::{HolonDescriptorBuilderImpl, DescriptorBuilderStubsFactory};
 
 
-impl HolonDescriptorBuilder for HolonDescriptorBuilderImpl {
-    fn with_type_name(&self, type_name:String)-> Self {   
-        self.header.type_name = type_name;
-        self
-    }
-    fn with_description(&self, description:String)-> Self {
-        self.header.description = description;
-        self
-    }
-    // fn with_is_dependent(&self, is_dependent:bool)-> Self {
+impl DescriptorBuilder for HolonDescriptorBuilderImpl {
+    fn with_type_name(&self,type_name:String)->Box<dyn DescriptorBuilder>{
+       Box::new(HolonDescriptorBuilderImpl {
+             type_name: Some(type_name),
+             description: self.description.clone(),
+         })
+     }
+     fn with_description(&self,description:String)->Box<dyn DescriptorBuilder>{
+        Box::new(HolonDescriptorBuilderImpl {
+             type_name: self.type_name.clone(),
+             description: Some(description),
+         })
+     }
+ }
 
-    // }
-    fn create() -> HolonDescriptorBuilderImpl {
-        // TODO: Factory
+#[derive(Debug, Clone, Default, new, Eq, PartialEq)]
+pub struct HolonDescriptorBuilderImpl {
+    type_name: Option<String>,
+    description: Option<String>,
+}
+
+#[derive(Debug, Clone, new, Serialize, Deserialize, SerializedBytes)]
+pub struct DescriptorBuilderFactoryImpl {
+    // data that influences how factories are created
+}
+
+impl DescriptorBuilderFactory for DescriptorBuilderFactoryImpl {
+    fn make_holon_descriptor(&self)->Box<HolonDescriptor> {
+        Box::new(HolonDescriptorBuilderStubsImpl::new())
     }
 }
+
+// impl Debug for dyn DescriptorBuilder {
+//     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+//         write!(f, "DescriptorBuilder: {:?}", self)
+//     }
+// }

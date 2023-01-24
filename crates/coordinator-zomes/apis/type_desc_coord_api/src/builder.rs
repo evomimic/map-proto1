@@ -16,58 +16,21 @@ pub trait DescriptorBuilder {
     // fn with_is_dependent(&self, is_dependent:bool)->Self;
 }
 
-impl Debug for dyn DescriptorBuilder {
-    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        write!(f, "DescriptorBuilder: {:?}", self)
-    }
+
+pub trait HolonDescriptorBuilder: DescriptorBuilder {
+    // fn build(&self) -> HolonDescriptor;
+    // fn commit(&self) -> Record;
+    // fn add_property(&self, property:String)->Self;
 }
-
-
-// pub trait HolonDescriptorBuilder: DescriptorBuilder {
-//     // fn build(&self) -> HolonDescriptor;
-//     // fn commit(&self) -> Record;
-//     // fn add_property(&self, property:String)->Self;
-// }
 
 
 
 trait DescriptorBuilderFactory {
-    fn make_holon_descriptor(&self)->Box<HolonDescriptorBuilderStubsImpl>;
+    fn make_holon_descriptor(&self)->Box<dyn HolonDescriptorBuilder>;
+
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, SerializedBytes)]
-pub struct DescriptorBuilderStubsFactory {
-    descriptor_type: TypeDescriptor,
-}
 
-impl DescriptorBuilderFactory for DescriptorBuilderStubsFactory {
-    fn make_holon_descriptor(&self)->Box<HolonDescriptorBuilderStubsImpl> {
-        Box::new(HolonDescriptorBuilderStubsImpl::new())
-    }
-}
-
-#[derive(Debug, Clone, Default, new, Eq, PartialEq)]
-pub struct HolonDescriptorBuilderStubsImpl {
-    #[new(default)]
-    type_name: Option<String>,
-    #[new(default)]
-    description: Option<String>,
-}
-
-impl DescriptorBuilder for HolonDescriptorBuilderStubsImpl {
-   fn with_type_name(&self,type_name:String)->Box<dyn DescriptorBuilder>{
-      Box::new(HolonDescriptorBuilderStubsImpl {
-            type_name: Some(type_name),
-            description: self.description.clone(),
-        })
-    }
-    fn with_description(&self,description:String)->Box<dyn DescriptorBuilder>{
-       Box::new(HolonDescriptorBuilderStubsImpl {
-            type_name: self.type_name.clone(),
-            description: Some(description),
-        })
-    }
-}
 
 // impl HolonDescriptorBuilder for HolonDescriptorBuilderImpl {
 //    fn add_property(&self, property:String) {
@@ -83,14 +46,7 @@ impl DescriptorBuilder for HolonDescriptorBuilderStubsImpl {
 // .with_is_dependent(false);
 ////
 
-pub fn create_descriptor_builder(factory: DescriptorBuilderStubsFactory) -> ExternResult<Box<dyn DescriptorBuilder>> {
-    match &factory.descriptor_type {
-        TypeDescriptor::Holon(_) => Ok(factory.make_holon_descriptor()),
-        _ => Err(wasm_error!(WasmErrorInner::Guest(
-            "Only testing Holon".to_string(),
-        )))
-    }
-}
+
 
 // enum State {
 //     New,
@@ -233,10 +189,10 @@ mod tests {
 
     #[test]
     fn test_create_descriptor_builder() {
-        let factory = DescriptorBuilderStubsFactory {
+        let factory = DescriptorBuilderFactoryImpl {
             descriptor_type: TypeDescriptor::Holon(Box::new(HolonDescriptor::default())),
         };
-        let stubs = HolonDescriptorBuilderStubsImpl::new();
+        let stubs = HolonDescriptorBuilderImpl::new();
         let test_builder = create_descriptor_builder(factory).unwrap();
         // assert_eq!(stubs, test_builder);
         format!("{:#?}", stubs);
