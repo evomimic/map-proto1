@@ -19,6 +19,7 @@ members = [
 [workspace.dependencies]
 hdi = "0.2"
 hdk = "0.1.0"
+holochain = "0.1.0"
 serde = "1"
 derive-new = "0.5"
 
