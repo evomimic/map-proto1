@@ -4,7 +4,7 @@ use hc_zome_integrity_type_desc::descriptor::descriptor::HolonDescriptor;
 
 
 pub trait DescriptorQueries {
-    fn get_all_holontypes() -> ExternResult<Vec<HolonDescriptor>>;
+    fn get_all_holontypes(&self) -> ExternResult<Vec<HolonDescriptor>>;
     
 }
 
