@@ -56,7 +56,7 @@ pub mod descriptor {
 
     #[derive(Serialize, Deserialize, Debug)]
     pub enum TypeDescriptor {
-        //Holon(Box<HolonDescriptor>),
+        Holon(Box<HolonDescriptor>),
         //Collection(CollectionDescriptor),
         //Composite(CompositeDescriptor),
         //Relationship(RelationshipDescriptor),

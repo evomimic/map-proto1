@@ -1,17 +1,18 @@
 use hdk::prelude::*;
 
+
 use hc_zome_coordinator_type_desc_api::queries::DescriptorQueries;
 use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, TypeHeader};
 
 
 #[derive(Debug,)]
-pub struct QueryController;
+pub struct DescriptorQueryControllerStubs;
 
 // put the implementation for get_all_holon_types() for QueryController here
 
-impl DescriptorQueries for QueryController {
+impl DescriptorQueries for DescriptorQueryControllerStubs {
 
-    fn get_all_holontypes() -> ExternResult<Vec<HolonDescriptor>> {
+    fn get_all_holontypes(&self) -> ExternResult<Vec<HolonDescriptor>> {
 
         let descriptor1 = HolonDescriptor {
             header: TypeHeader::new("ex1".to_string(), "desc1".to_string())
@@ -38,10 +39,13 @@ mod tests {
 
   use super::*; // allows testing of private functions
 
-  #[test]
+    #[test]
   fn test_get_all_holon_types() {
-    let descriptors = QueryController::get_all_holontypes();
-    println!("{:?}", descriptors);
+      let controller = Box::new(DescriptorQueryControllerStubs);
+      let descriptors = DescriptorQueryControllerStubs::get_all_holontypes(&controller);
+        for d in &descriptors.iter() {
+            println!("{:?}", d);
+        }
   }
 
 }
