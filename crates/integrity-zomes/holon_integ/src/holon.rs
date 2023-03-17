@@ -3,7 +3,7 @@ pub mod holon {
     use std::collections::BTreeMap;
     // use hdi::prelude::hash_blake2b;
 // use hdk::prelude::holo_hash::*;
-    use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion};
+   // use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion};
 
     //use hdk::prelude::EntryHash;
 
@@ -25,9 +25,9 @@ pub mod holon {
         namespace_id: u8,
         local_id: u8,
         //  created_at: Timestamp,
-        version: SemanticVersion,
+        //version: SemanticVersion,
         properties: BTreeMap<String, PropertyValue>,
-        descriptor: HolonDescriptor,
+       // descriptor: HolonDescriptor,
         //  actions: ActionMap,
         //relationships: RelationshipMap
     }
@@ -45,14 +45,14 @@ pub mod holon {
     #[derive(Serialize, Deserialize, Debug, Clone)]
     #[serde(rename_all = "camelCase")]
     pub struct IntegerValue<T> {
-        descriptor: IntegerDescriptor,
+        //descriptor: IntegerDescriptor,
         value: T,
     }
 
     #[derive(Serialize, Deserialize, Debug, Clone)]
     #[serde(rename_all = "camelCase")]
     pub struct StringValue {
-        descriptor: StringDescriptor,
+        //descriptor: StringDescriptor,
         value: String,
     }
     /*
@@ -72,7 +72,7 @@ pub mod holon {
     #[derive(Serialize, Deserialize, Debug, Clone)]
     #[serde(rename_all = "camelCase")]
     pub struct BooleanValue {
-        descriptor: BooleanDescriptor,
+        //descriptor: BooleanDescriptor,
         value: bool,
         fuzzy_value: UnitInterval,
     }

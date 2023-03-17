@@ -1,0 +1,19 @@
+---
+manifest_version: "1"
+name: map-proto1
+integrity:
+  network_seed: ~
+  properties: ~
+  origin_time: 1667042009524230
+  zomes:
+    - name: hc_zome_integrity_type_desc
+      hash: ~
+      bundled: "../../target/wasm32-unknown-unknown/release/hc_zome_integrity_type_desc.wasm"
+      dependencies: ~
+coordinator:
+  zomes:
+    - name: hc_zome_coordinator_externs
+      hash: ~
+      bundled: "../../target/wasm32-unknown-unknown/release/hc_zome_coordinator_externs.wasm"
+      dependencies:
+        - name: hc_zome_integrity_type_desc
