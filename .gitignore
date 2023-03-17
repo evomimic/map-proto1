@@ -6,13 +6,15 @@
 ## system files
 .DS_Store
 
-target/
-node_modules/
-dist/
-.cargo/
+/node_modules/
+/dist/
+/target/
+/.cargo/
+/tests/node_modules/
+*.happ
+*.webhapp
+*.zip
+*.dna
 .hc*
-dna/workdir/*.dna
-dna/workdir/*.happ
-dna/workdir/*.webhapp
-*.tsbuildinfo
+.hc
 .running
