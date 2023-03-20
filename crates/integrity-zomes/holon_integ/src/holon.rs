@@ -14,7 +14,7 @@ pub mod holon {
 
     #[hdk_entry_defs]
     #[unit_enum(UnitEntryTypes)]
-    pub enum EntryTypes {
+    pub enum HolonEntryTypes {
         #[entry_def(name = "Holon", visibility = "public")]
         Holon(Holon),
     }

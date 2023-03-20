@@ -1,6 +1,6 @@
 // put the trait definition for get_all_holon_types() here
 use hdk::prelude::*;
-use hc_zome_integrity_type_desc::descriptor::descriptor::HolonDescriptor;
+use hc_zome_integrity_type_desc::descriptor::HolonDescriptor;
 
 
 pub trait DescriptorQueries {
