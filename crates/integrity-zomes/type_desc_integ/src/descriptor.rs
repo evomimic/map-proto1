@@ -1,19 +1,19 @@
 
 pub mod descriptor {
-    use hdi::prelude::EntryHash;
+    // use hdi::prelude::EntryHash;
     use hdi::prelude::*;
     use derive_new::new;
     use serde::Deserialize;
     use serde::Serialize;
-    use std::collections::BTreeMap;
+    // use std::collections::BTreeMap;
     // TODO: add support for DateTime type via chrono and/or chrono-tz
     //    use self::chrono::prelude::*;
 
     #[hdk_entry_defs]
     #[unit_enum(UnitEntryTypes)]
-    pub enum EntryTypes {
+    pub enum DescriptorEntryTypes {
         #[entry_def(name = "HolonDescriptor", visibility = "public")]
-        Holon(HolonDescriptor),
+        HolonDescriptor(HolonDescriptor),
         //Collection(CollectionDescriptor),
         //Composite(CompositeDescriptor),
         //Relationship(RelationshipDescriptor),

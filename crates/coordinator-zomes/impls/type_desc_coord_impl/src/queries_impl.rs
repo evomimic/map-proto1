@@ -43,7 +43,7 @@ mod tests {
   fn test_get_all_holon_types() {
       let controller = Box::new(DescriptorQueryControllerStubs);
       let descriptors = DescriptorQueryControllerStubs::get_all_holontypes(&controller);
-        for d in &descriptors.iter() {
+        for d in &mut descriptors.iter() {
             println!("{:?}", d);
         }
   }
