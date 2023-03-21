@@ -3,7 +3,8 @@ pub mod holon {
     use std::collections::BTreeMap;
     // use hdi::prelude::hash_blake2b;
 // use hdk::prelude::holo_hash::*;
-   // use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion};
+    #[allow(unused_imports)]
+    use hc_zome_integrity_type_desc::descriptor::descriptor::{HolonDescriptor, IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion};
 
     //use hdk::prelude::EntryHash;
 
@@ -14,7 +15,7 @@ pub mod holon {
 
     #[hdk_entry_defs]
     #[unit_enum(UnitEntryTypes)]
-    pub enum EntryTypes {
+    pub enum HolonEntryTypes {
         #[entry_def(name = "Holon", visibility = "public")]
         Holon(Holon),
     }
@@ -27,7 +28,7 @@ pub mod holon {
         //  created_at: Timestamp,
         //version: SemanticVersion,
         properties: BTreeMap<String, PropertyValue>,
-       // descriptor: HolonDescriptor,
+        descriptor: HolonDescriptor,
         //  actions: ActionMap,
         //relationships: RelationshipMap
     }
