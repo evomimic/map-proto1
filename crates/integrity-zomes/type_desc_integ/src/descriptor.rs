@@ -66,7 +66,7 @@ pub enum TypeDescriptor {
     // Enum(EnumDescriptor),
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, new, Default)]
+#[derive(Serialize, Deserialize, Debug, Clone, new, Default, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct TypeHeader {
     // the shared attributes common to all Type Descriptors
@@ -84,7 +84,7 @@ pub struct TypeHeader {
 }
 
 #[hdk_entry_helper]
-#[derive(new)]
+#[derive(new, PartialEq, Eq)]
 #[serde(rename_all = "camelCase")]
 pub struct HolonDescriptor {
     pub header: Box<TypeHeader>,
