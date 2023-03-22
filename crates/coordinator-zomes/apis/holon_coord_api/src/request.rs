@@ -30,13 +30,13 @@ pub trait Result {
     fn next_actions(&self) -> Vec<Box<dyn Request>>;
 }
 
-// An action may either be a query or a command
-// the Action trait can be used to support the Decorator pattern
-// e.g., a Validator and an Authorizer (both of which implement Action trait) could be inserted in front
-// the struct that actually implements the Action
-pub trait Action {
-    fn execute(&self);
-}
+// // An action may either be a query or a command
+// // the Action trait can be used to support the Decorator pattern
+// // e.g., a Validator and an Authorizer (both of which implement Action trait) could be inserted in front
+// // the struct that actually implements the Action
+// pub trait Action {
+//     fn execute(&self);
+// }
 
 // Commands are, possibly undoable, actions that modify state (i.e., mutators)
 pub trait Command: Action {
