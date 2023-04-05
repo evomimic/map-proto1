@@ -13,3 +13,14 @@ serde = { workspace = true }
 hc_zome_coordinator_type_desc_api = { workspace = true }
 hc_zome_coordinator_type_desc_impl =  { workspace = true }
 hc_zome_integrity_type_desc = { workspace = true }
+
+
+[dev-dependencies]
+hdk = { workspace = true, features = ["encoding", "test_utils"] }
+holochain = { version = "0.1.3", default-features = false, features = [
+  "test_utils",
+] }
+
+# fixt = "0.1"
+futures = { version = "0.3.1", default-features = false }
+tokio = { version = "1.3", features = ["full"] }

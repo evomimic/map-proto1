@@ -24,7 +24,6 @@ pub enum HolonEntryTypes {
 #[hdk_entry_helper]
 #[serde(rename_all = "camelCase")]
 pub struct Holon {
-    hid: EntryHash,
     namespace_id: u8,
     local_id: u8,
     //  created_at: Timestamp,
