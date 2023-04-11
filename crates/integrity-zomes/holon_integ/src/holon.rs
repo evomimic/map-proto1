@@ -1,14 +1,8 @@
 
 use hdi::prelude::*;
 use std::collections::BTreeMap;
-// use hdi::prelude::hash_blake2b;
-// use hdk::prelude::holo_hash::*;
-#[allow(unused_imports)]
-use hc_zome_integrity_type_desc::descriptor::{HolonDescriptor, 
-    // IntegerDescriptor, StringDescriptor, BooleanDescriptor, SemanticVersion
-};
 
-//use hdk::prelude::EntryHash;
+use descriptors::{ HolonDescriptor, };
 
 #[hdk_link_types]
 pub enum LinkTypes {
@@ -17,7 +11,7 @@ pub enum LinkTypes {
 
 #[hdk_entry_defs]
 #[unit_enum(UnitEntryTypes)]
-pub enum HolonEntryTypes {
+pub enum EntryTypes {
     #[entry_def(name = "Holon", visibility = "public")]
     Holon(Holon),
 }

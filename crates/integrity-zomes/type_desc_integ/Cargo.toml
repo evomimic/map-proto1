@@ -13,3 +13,4 @@ hdi = { workspace = true }
 derive-new = { workspace = true }
 serde = { workspace = true }
 
+descriptors = { path = "../../libs/types/descriptors" }

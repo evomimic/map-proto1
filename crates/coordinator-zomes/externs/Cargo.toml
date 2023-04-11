@@ -10,9 +10,10 @@ name = "hc_zome_coordinator_externs"
 [dependencies]
 hdk = { workspace = true }
 serde = { workspace = true }
+
+descriptors = { path = "../../libs/types/descriptors" }
 hc_zome_coordinator_type_desc_api = { workspace = true }
 hc_zome_coordinator_type_desc_impl =  { workspace = true }
-hc_zome_integrity_type_desc = { workspace = true }
 
 
 [dev-dependencies]

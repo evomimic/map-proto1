@@ -12,4 +12,4 @@ hdk = { workspace = true }
 serde = { workspace = true }
 derive-new = { workspace = true }
 
-hc_zome_integrity_type_desc = { workspace = true }
+descriptors = { path = "../../../libs/types/descriptors" }

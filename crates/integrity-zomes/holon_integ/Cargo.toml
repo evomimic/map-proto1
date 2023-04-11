@@ -11,5 +11,6 @@ name = "hc_zome_integrity_holon"
 hdk = { workspace = true }
 hdi = { workspace = true }
 serde = { workspace = true }
-hc_zome_integrity_type_desc = {workspace = true}
+
+descriptors = { path = "../../libs/types/descriptors" }
 

@@ -1,7 +1,7 @@
 use hdk::prelude::*;
 
 use hc_zome_coordinator_type_desc_api::queries::DescriptorQueries;
-use hc_zome_integrity_type_desc::descriptor::{HolonDescriptor, TypeHeader};
+use descriptors::{HolonDescriptor, TypeHeader};
 
 #[derive(Debug)]
 pub struct DescriptorQueryControllerStubs;

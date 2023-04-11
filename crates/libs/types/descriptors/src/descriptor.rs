@@ -1,30 +1,11 @@
-
-// use hdi::prelude::EntryHash;
 use derive_new::new;
-use hdi::prelude::*;
-use serde::Deserialize;
-use serde::Serialize;
 // use std::collections::BTreeMap;
 // TODO: add support for DateTime type via chrono and/or chrono-tz
 //    use self::chrono::prelude::*;
 
-#[hdk_entry_defs]
-#[unit_enum(UnitEntryTypes)]
-pub enum DescriptorEntryTypes {
-    #[entry_def(name = "HolonDescriptor", visibility = "public")]
-    HolonDescriptor(HolonDescriptor),
-    //Collection(CollectionDescriptor),
-    //Composite(CompositeDescriptor),
-    //Relationship(RelationshipDescriptor),
-    // #[entry_def(name = "BooleanDescriptor", visibility = "public")]
-    // Boolean(BooleanDescriptor),
-    // #[entry_def(name = "IntegerDescriptor", visibility = "public")]
-    // Integer(IntegerDescriptor),
-    // #[entry_def(name = "StringDescriptor", visibility = "public")]
-    // String(StringDescriptor),
-    // TODO: check if enum variant names conflict with keywords/std types
-    // Enum(EnumDescriptor),
-}
+use hdi::prelude::*;
+
+
 // pub type Oid = EntryHash;
 // pub type Oid = u64;
 

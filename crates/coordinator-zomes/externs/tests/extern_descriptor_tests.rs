@@ -8,9 +8,9 @@ use holochain::sweettest::{
     SweetAgents, SweetCell, SweetConductor, SweetDnaFile,
 };
 
-use hc_zome_integrity_type_desc::descriptor::{HolonDescriptor, TypeHeader};
+use descriptors::{HolonDescriptor, TypeHeader};
 
-const DNA_FILEPATH: &str = "../../../workdir/map-proto1.dna";
+const DNA_FILEPATH: &str = "../../workdir/map-proto1.dna";
 
 // #[tokio::test(flavor = "multi_thread")]
 // pub async fn test_create_holondescriptorbuilder() {
@@ -105,10 +105,10 @@ pub async fn test_get_all_holontypes() {
     setup_conductor().await;
 
   let testing_descriptors: Vec<HolonDescriptor> = conductor
-    .call(&cell.zome("hc_zome_coordinator_externs"), "get_all_holon_types", ())
+    .call(&cell.zome("hc_zome_coordinator_externs"), "get_all_holontypes", ())
     .await;
 
-  format!("{:?}", testing_descriptors);
+  // println!("{:?}", testing_descriptors);
 
   let example1 = HolonDescriptor {
     header: Box::new(TypeHeader::new("ex1".to_string(), "desc1".to_string())),
@@ -124,7 +124,7 @@ pub async fn test_get_all_holontypes() {
 
   let example_descriptors: Vec<HolonDescriptor> = vec![example1, example2, example3];
 
-  format!("{:?}", example_descriptors);
+  // println!("{:?}", example_descriptors);
 
   assert_eq!(example_descriptors, testing_descriptors);
 

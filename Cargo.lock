@@ -1145,6 +1145,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "descriptors"
+version = "0.1.0"
+dependencies = [
+ "derive-new",
+ "hdi",
+ "hdk",
+ "serde",
+]
+
+[[package]]
 name = "diff"
 version = "0.1.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1787,10 +1797,10 @@ dependencies = [
 name = "hc_zome_coordinator_externs"
 version = "0.1.0"
 dependencies = [
+ "descriptors",
  "futures",
  "hc_zome_coordinator_type_desc_api",
  "hc_zome_coordinator_type_desc_impl",
- "hc_zome_integrity_type_desc",
  "hdk",
  "holochain",
  "serde",
@@ -1821,7 +1831,7 @@ name = "hc_zome_coordinator_type_desc_api"
 version = "0.1.0"
 dependencies = [
  "derive-new",
- "hc_zome_integrity_type_desc",
+ "descriptors",
  "hdk",
  "serde",
 ]
@@ -1831,8 +1841,8 @@ name = "hc_zome_coordinator_type_desc_impl"
 version = "0.1.0"
 dependencies = [
  "derive-new",
+ "descriptors",
  "hc_zome_coordinator_type_desc_api",
- "hc_zome_integrity_type_desc",
  "hdk",
  "serde",
 ]
@@ -1841,7 +1851,7 @@ dependencies = [
 name = "hc_zome_integrity_holon"
 version = "0.1.0"
 dependencies = [
- "hc_zome_integrity_type_desc",
+ "descriptors",
  "hdi",
  "hdk",
  "serde",
@@ -1852,6 +1862,7 @@ name = "hc_zome_integrity_type_desc"
 version = "0.1.0"
 dependencies = [
  "derive-new",
+ "descriptors",
  "hdi",
  "hdk",
  "serde",
