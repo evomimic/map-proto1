@@ -1,9 +1,5 @@
-#[path = "holon.rs"]
 pub mod holon;
 
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
 
 // #[cfg(test)]
 // mod tests {

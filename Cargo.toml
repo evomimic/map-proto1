@@ -5,6 +5,7 @@ opt-level = "z"
 opt-level = "z"
 
 [workspace]
+resolver ="2"
 members = [
     "crates/coordinator-zomes/apis/holon_coord_api",
     "crates/coordinator-zomes/apis/type_desc_coord_api",
@@ -13,6 +14,7 @@ members = [
     "crates/coordinator-zomes/externs",
     "crates/integrity-zomes/holon_integ",
     "crates/integrity-zomes/type_desc_integ",
+    "crates/libs/types/descriptors"
 
 ]
 
@@ -21,6 +23,7 @@ hdi = "0.2.1"
 hdk = "0.1.1"
 serde = "1"
 derive-new = "0.5"
+
 
 [workspace.dependencies.hc_zome_coordinator_holon_api]
 path = "crates/coordinator-zomes/apis/holon_coord_api"

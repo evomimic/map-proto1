@@ -1,6 +1,6 @@
 use hdk::prelude::*;
 
-use hc_zome_integrity_type_desc::descriptor::descriptor::HolonDescriptor;
+use descriptors::HolonDescriptor;
 use hc_zome_coordinator_type_desc_api::queries::DescriptorQueries;
 use hc_zome_coordinator_type_desc_impl::queries_impl::DescriptorQueryControllerStubs;
 
