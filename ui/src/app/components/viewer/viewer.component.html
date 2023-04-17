@@ -1,0 +1,11 @@
+<div class="h-full bg-gray-100 dark-mode:bg-gray-900">
+  <ng-content></ng-content>
+  <h3>network 1 {{hnet1}}</h3>
+  <li *ngFor="let holon of (holons$ | async)">
+    {{ holon | json}}
+  </li>
+  <h3>network 2 {{hnet2}}</h3>
+  <li *ngFor="let holon of (holons2$ | async)">
+    {{ holon | json}}
+  </li>
+</div>

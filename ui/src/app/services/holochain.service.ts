@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { environment } from 'src/environments/environment';
-import { AppSignalCb, AppSignal, AppWebsocket, CellId, InstalledCell } from '@holochain/client'
+import { AppSignalCb, AppSignal, AppWebsocket, CellId, InstalledCell, AppInfo, CellInfo, RoleName, CellType, CellProvisioningStrategy, ProvisionedCell } from '@holochain/client'
 import { serializeHash } from "../helpers/utils";
 
 
@@ -18,44 +18,63 @@ export type SignalCallback = {cell_name:string, zome_name:string, cb_fn:AppSigna
   providedIn: "root"
 })
 export class HolochainService implements OnDestroy{
-  protected appWS!: AppWebsocket 
-  protected cellData!: InstalledCell[] 
+  protected appWS!: AppWebsocket
+  protected appInfo!: AppInfo 
+  protected _cellData!: Record<RoleName, Array<CellInfo>>;
   protected signalCallbacks: SignalCallback[] = []
 
   get_pub_key_from_cell(cell:string):string | undefined {
-    for(let installedcell of this.cellData){
-      if (installedcell.role_id == cell)
-        return serializeHash(installedcell.cell_id[1])
+    return undefined //this.appInfo.agent_pub_key uni8array
+    //for(let installedcell of this._cellData['myrole']){
+    //  if (installedcell.role_id == cell)
+     //   return serializeHash(installedcell.cell_id[1])
+   // };
+   // return undefined
+  }
+
+  get_installed_cells(){
+    return this._cellData
+  }
+
+  getCellNameFromDNAHash(dnahash:Uint8Array){
+    for(let cell of this.appInfo.cell_info["map-proto1"]){
+      if (Object.values(cell)[0].cell_id[0]  == dnahash)
+        return Object.values(cell)[0].name
     };
     return undefined
   }
 
-  protected getCellId(cell:string):CellId | undefined {
-    for(let installedcell of this.cellData){
-      if (installedcell.role_id == cell)
-        return installedcell.cell_id
+  protected getCellId(cell_name:string):CellId | undefined {
+    for(let installedcell of this._cellData["map-proto1"]){
+      if (Object.values(installedcell)[0].name == cell_name)
+        return Object.values(installedcell)[0].cell_id
     };
     return undefined
   }
 
-    async init(){ //called by the appModule at startup
+    //if this doesnt return a resolved promise.. the app will not bootstrap  
+    async init():Promise<void>{ //called by the appModule at startup
         sessionStorage.clear()
-       // if (!environment.mock){
           try{
             console.log("Connecting to holochain")
-            this.appWS =  await AppWebsocket.connect(environment.HOST_URL,1500, (s)=>this.signalHandler(s))
-            const appInfo = await this.appWS.appInfo({ installed_app_id: environment.APP_ID});
-            this.cellData = appInfo.cell_data;
-            console.log("Connected to holochain",appInfo.cell_data)
+            this.appWS =  await AppWebsocket.connect(environment.HOST_URL,1500)
+            this.appWS.on("signal",(s)=>this.signalHandler(s))
+            this.appInfo = await this.appWS.appInfo({ installed_app_id: environment.APP_ID});
+            this._cellData = this.appInfo.cell_info;
+            console.log("Connected to holochain",this.appInfo.cell_info)
+            console.log("app status",this.appInfo.status)
             sessionStorage.setItem("status","HOLOCHAIN")
           }catch(error){
-              sessionStorage.setItem("status","mock")
               console.error(error)
-              //throw(error)
-          }
-        //} else {
-        //  console.log("you are in Mock mode.. no connections made!")
-       // }
+              if (environment.mock){
+                sessionStorage.setItem("status","mock")
+                //this._cellData = new Record<"mock",[]>
+                  //{cell_id:[new Uint8Array(10), new Uint8Array(10)], role_id:"typedescriptor:role0"},
+                  //{cell_id:[new Uint8Array(8), new Uint8Array(8)], role_id:"holon:role0"},
+                  //{cell_id:[new Uint8Array(6), new Uint8Array(6)], role_id:"holon:role1"}] 
+                return Promise.resolve()
+              }
+        }
     }
 
      call(cell:string, zome:string, fn_Name:string, payload:any, timeout=15000): Promise<any>{
@@ -66,8 +85,8 @@ export class HolochainService implements OnDestroy{
             cap_secret: null,
             cell_id: cellId,
             zome_name: zome,
-            fn_name: fn_Name,
-            payload: payload,
+            fn_name: fn_Name,  //will always be execute
+            payload: payload,  // specify actually commmand function call
             provenance: cellId[1],
           },
         timeout
@@ -79,9 +98,10 @@ export class HolochainService implements OnDestroy{
       if(this.signalCallbacks.length > 0){
         for (const cb of this.signalCallbacks) {
           console.log("cb data: ",cb)
-          if (cb.cell_name == signal.data.payload.cell && cb.zome_name == signal.data.payload.zome){
+          var signalCellName = this.getCellNameFromDNAHash(signal.cell_id[0])
+          if (cb.cell_name == signalCellName && cb.zome_name == signal.zome_name){
             console.log("signal callback found, executing cb function: ")
-            cb.cb_fn(signal.data.payload)
+            cb.cb_fn(signal)
             return
           }
         }
@@ -89,8 +109,10 @@ export class HolochainService implements OnDestroy{
       }
     }
 
-    registerCallback(cell_name:string, zome_name: string, handler:AppSignalCb){
-      this.signalCallbacks.push({cell_name:cell_name,zome_name:zome_name,cb_fn:handler})
+    registerCallback(cell_name:string, zomes: string[], handler:AppSignalCb){
+      zomes.forEach(zome => {
+        this.signalCallbacks.push({cell_name:cell_name, zome_name:zome, cb_fn:handler})
+      });
     }
 
     //TODO add event listener and relay state change back to UI
