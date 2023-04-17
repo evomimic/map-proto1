@@ -6,8 +6,8 @@
     "tests"
   ],
   "scripts": {
-    "start": "AGENTS=2 npm run network",
-    "network": "hc s clean && npm run build:happ && UI_PORT=8888 concurrently \"npm start -w ui\" \"npm run launch:happ\" \"holochain-playground\"",
+    "start": "AGENTS=1 npm run network",
+    "network": "hc s clean && npm run build:happ && UI_PORT=4200 concurrently \"npm start -w ui\" \"npm run launch:happ\" \"holochain-playground\"",
     "test": "npm run build:zomes && hc app pack workdir --recursive && npm t -w tests",
     "sweetest": "npm run build:happ && cargo nextest run -j 1",
     "launch:happ": "echo \"pass\" | RUST_LOG=warn hc launch --piped -n $AGENTS workdir/map-proto1.happ --ui-port $UI_PORT network mdns",

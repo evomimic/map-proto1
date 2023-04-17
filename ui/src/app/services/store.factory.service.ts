@@ -6,12 +6,13 @@ import { HolonReceptor } from '../receptors/holon.receptor';
 import { inject, Inject, Injectable, InjectionToken, Injector, Provider } from '@angular/core';
 import { TypeDescriptorStore } from '../stores/typedescriptor.store';
 import { TypeDescriptorReceptor } from '../receptors/typedescriptor.receptor';
+import { environment } from 'src/environments/environment';
 
 
 function holonStoreFactory(hcs: HolochainService):HolonStore[]{
   const cells = hcs.get_installed_cells()
   let storeArray:HolonStore[]= []
-  for (const cell of cells['map-proto1']) {
+  for (const cell of cells[environment.ROLE_ID]) {
     let cell_name = Object.values(cell)[0].name
     if (cell_name.startsWith("holon:")){
       let holonReceptor = new HolonReceptor(hcs)
@@ -25,8 +26,8 @@ function holonStoreFactory(hcs: HolochainService):HolonStore[]{
 function typeDescriptorStoreFactory(hcs: HolochainService){
   const cells = hcs.get_installed_cells()
   const receptor = new TypeDescriptorReceptor(hcs)
-  for (const cell of cells['map-proto1']) {
-    if (Object.values(cell)[0].name == "typedescriptor:role0")  //we need to find user pref here for role/instance
+  for (const cell of cells[environment.ROLE_ID]) {
+    if (Object.values(cell)[0].name == "map-descriptors")//typedescriptor:role0")  //we need to find user pref here for role/instance
       receptor.registerCallback(Object.values(cell)[0].name)
   }
   return new TypeDescriptorStore(receptor);

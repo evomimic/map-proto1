@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { environment } from 'src/environments/environment';
-import { AppSignalCb, AppSignal, AppWebsocket, CellId, InstalledCell, AppInfo, CellInfo, RoleName, CellType, CellProvisioningStrategy, ProvisionedCell } from '@holochain/client'
+import { AppSignalCb, AppSignal, AppWebsocket, CellId, InstalledCell, AppInfo, CellInfo, RoleName, CellType, CellProvisioningStrategy, ProvisionedCell, AppAgentWebsocket } from '@holochain/client'
 import { serializeHash } from "../helpers/utils";
 
 
@@ -18,7 +18,7 @@ export type SignalCallback = {cell_name:string, zome_name:string, cb_fn:AppSigna
   providedIn: "root"
 })
 export class HolochainService implements OnDestroy{
-  protected appWS!: AppWebsocket
+  protected appWS!: AppAgentWebsocket
   protected appInfo!: AppInfo 
   protected _cellData!: Record<RoleName, Array<CellInfo>>;
   protected signalCallbacks: SignalCallback[] = []
@@ -37,7 +37,7 @@ export class HolochainService implements OnDestroy{
   }
 
   getCellNameFromDNAHash(dnahash:Uint8Array){
-    for(let cell of this.appInfo.cell_info["map-proto1"]){
+    for(let cell of this.appInfo.cell_info[environment.ROLE_ID]){
       if (Object.values(cell)[0].cell_id[0]  == dnahash)
         return Object.values(cell)[0].name
     };
@@ -45,7 +45,7 @@ export class HolochainService implements OnDestroy{
   }
 
   protected getCellId(cell_name:string):CellId | undefined {
-    for(let installedcell of this._cellData["map-proto1"]){
+    for(let installedcell of this._cellData[environment.ROLE_ID]){
       if (Object.values(installedcell)[0].name == cell_name)
         return Object.values(installedcell)[0].cell_id
     };
@@ -57,9 +57,10 @@ export class HolochainService implements OnDestroy{
         sessionStorage.clear()
           try{
             console.log("Connecting to holochain")
-            this.appWS =  await AppWebsocket.connect(environment.HOST_URL,1500)
+            this.appWS =  await AppAgentWebsocket.connect(environment.HOST_URL,environment.APP_ID,1500)
+            //appWSs.getCellIdFromRoleName()
             this.appWS.on("signal",(s)=>this.signalHandler(s))
-            this.appInfo = await this.appWS.appInfo({ installed_app_id: environment.APP_ID});
+            this.appInfo = await this.appWS.appInfo()//{ installed_app_id: environment.APP_ID});
             this._cellData = this.appInfo.cell_info;
             console.log("Connected to holochain",this.appInfo.cell_info)
             console.log("app status",this.appInfo.status)
@@ -118,13 +119,13 @@ export class HolochainService implements OnDestroy{
     //TODO add event listener and relay state change back to UI
     getConnectionState():string{
       if (this.appWS)
-        return ConnectionState[this.appWS.client.socket.readyState]
+        return ConnectionState[this.appWS.appWebsocket.client.socket.readyState]
       else
         return ConnectionState[1]
     }
 
     ngOnDestroy(){
-      this.appWS.client.close();
+      this.appWS.appWebsocket.client.close();
     }
 
 }
