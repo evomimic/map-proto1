@@ -3,7 +3,7 @@ manifest_version: "1"
 name: map-proto1
 description: ~
 roles:
-  - name: map-proto1
+  - name: default
     provisioning:
       strategy: create
       deferred: false
