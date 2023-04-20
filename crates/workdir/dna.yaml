@@ -1,6 +1,6 @@
 ---
 manifest_version: "1"
-name: map-descriptors
+name: map-proto1
 integrity:
   network_seed: ~
   properties: ~

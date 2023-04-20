@@ -3,12 +3,12 @@ manifest_version: "1"
 name: map-proto1
 description: ~
 roles:
-  - name: standard
+  - name: default
     provisioning:
       strategy: create
       deferred: false
     dna:
-      bundled: "../crates/workdir/map-descriptors.dna"
+      bundled: "../crates/workdir/map-proto1.dna"
       modifiers:
         network_seed: ~
         properties: ~

@@ -8,29 +8,38 @@ import { TypeDescriptorStore } from '../stores/typedescriptor.store';
 import { TypeDescriptorReceptor } from '../receptors/typedescriptor.receptor';
 import { environment } from 'src/environments/environment';
 
-
+// we assume a unique human readable key for the cell dictionary - roleName:cellName
+// rolename is the behaviour of the cell in the tissue and cellname is the instance 
 function holonStoreFactory(hcs: HolochainService):HolonStore[]{
-  const cells = hcs.get_installed_cells()
+  const celldata = hcs.get_installed_cells()
   let storeArray:HolonStore[]= []
-  for (const cell of cells[environment.ROLE_ID]) {
-    let cell_name = Object.values(cell)[0].name
-    if (cell_name.startsWith("holon:")){
-      let holonReceptor = new HolonReceptor(hcs)
-      holonReceptor.registerCallback(cell_name)
-      storeArray.push(new HolonStore(holonReceptor))
-    }
+  for (let role in celldata) {
+    let cells = celldata[role]
+    Object.keys(cells).forEach((cellname)=>{
+      if (cellname == "holon"){
+        let holonReceptor = new HolonReceptor(hcs)
+        holonReceptor.registerCallback(role,cellname)
+        storeArray.push(new HolonStore(holonReceptor))
+      }
+    })
   }
   return storeArray
 };
 
 function typeDescriptorStoreFactory(hcs: HolochainService){
-  const cells = hcs.get_installed_cells()
-  const receptor = new TypeDescriptorReceptor(hcs)
-  for (const cell of cells[environment.ROLE_ID]) {
-    if (Object.values(cell)[0].name == "map-descriptors")//typedescriptor:role0")  //we need to find user pref here for role/instance
-      receptor.registerCallback(Object.values(cell)[0].name)
+  const celldata = hcs.get_installed_cells()
+  let store = {}
+  for (let role in celldata) {
+    let cells = celldata[role]
+    Object.keys(cells).forEach((cellname)=>{
+        if (cellname == "map-proto1"){
+          const receptor = new TypeDescriptorReceptor(hcs)
+          receptor.registerCallback(role, cellname)
+          store = new TypeDescriptorStore(receptor);
+        }
+    })
   }
-  return new TypeDescriptorStore(receptor);
+  return store
 };
 
 export const TypeDescriptorStoreProvider = {
@@ -91,7 +100,7 @@ export class StoreFactory {
     //  return this._store_dictionary[this._selectedStore]!
     //else {
       const receptor = new HolonReceptor(this.hcs)
-      receptor.registerCallback(this.getDictionarykeys()[0])// _selectedStore)
+      //receptor.registerCallback(this.getDictionarykeys()[0])// _selectedStore)
       return new HolonStore(receptor)
       //this._store_dictionary[this._selectedStore] = new HolonStore(receptor)
       //return this._store_dictionary[this._selectedStore]!

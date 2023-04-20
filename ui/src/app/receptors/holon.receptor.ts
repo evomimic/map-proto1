@@ -10,6 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class HolonReceptor {
   private _cellname!:string
+  private _role!:string
   private _zomes:string[] = ["holon"]
   public signalReceived$ = new Subject<HolonEntry>()  //new
 
@@ -18,7 +19,8 @@ export class HolonReceptor {
    // this.hcs.registerCallback(_cellname,this._zomeName, (s)=>this.signalHandler(s))
   }
 
-  registerCallback(cellname:string){
+  registerCallback(role:string, cellname:string){
+    this._role = role
     this._cellname = cellname
     this.hcs.registerCallback(cellname,this._zomes, (s)=>this.signalHandler(s))
   }
@@ -35,7 +37,7 @@ export class HolonReceptor {
   }
 
   private callCell(fn_name: string, zome_name:string, payload: any): Promise<any> {
-    return this.hcs.call(this._cellname, zome_name, fn_name, payload);
+    return this.hcs.call(this._role, this._cellname, zome_name, fn_name, payload);
   }
 
   //future.. make dynamic hashmap lookup

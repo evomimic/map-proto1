@@ -1,17 +1,23 @@
 import { Injectable, OnDestroy } from "@angular/core";
 import { environment } from 'src/environments/environment';
-import { AppSignalCb, AppSignal, AppWebsocket, CellId, InstalledCell, AppInfo, CellInfo, RoleName, CellType, CellProvisioningStrategy, ProvisionedCell, AppAgentWebsocket } from '@holochain/client'
-import { serializeHash } from "../helpers/utils";
+import { AppSignalCb, AppSignal, AppWebsocket, CellId, InstalledCell, AppInfo, CellInfo, RoleName, CellType, CellProvisioningStrategy, ProvisionedCell, AppAgentWebsocket, ClonedCell } from '@holochain/client'
+import { Dictionary, fakeCellId, fakeDNAModifiers, serializeHash } from "../helpers/utils";
 
 
 export enum ConnectionState{
+  CONNECTING,
   OPEN,
-  CLOSED,
   CLOSING,
-  CONNECTING
+  CLOSED
 }
 
 export type SignalCallback = {cell_name:string, zome_name:string, cb_fn:AppSignalCb }
+declare type Cell = ProvisionedCell | ClonedCell
+
+//choice of Datastructure 
+// - use a TS Map when you need to manage entries of dynamically changing collection
+// - use a TS Record when you need a dictionary with predefined / resticted keys and for set and read usage
+// - use a TS Dictionary (index sig) when you need a dictionary with undetermined keys and for set and read usage (tick)
 
 //tsconfig: "allowSyntheticDefaultImports": true,
 @Injectable({
@@ -20,7 +26,7 @@ export type SignalCallback = {cell_name:string, zome_name:string, cb_fn:AppSigna
 export class HolochainService implements OnDestroy{
   protected appWS!: AppAgentWebsocket
   protected appInfo!: AppInfo 
-  protected _cellData!: Record<RoleName, Array<CellInfo>>;
+  protected _cellData!: Dictionary<Dictionary<Cell>> //Record<RoleCellName,CellInfo[]> = {} //Record<RoleName, Array<CellInfo>>;
   protected signalCallbacks: SignalCallback[] = []
 
   get_pub_key_from_cell(cell:string):string | undefined {
@@ -36,20 +42,58 @@ export class HolochainService implements OnDestroy{
     return this._cellData
   }
 
-  getCellNameFromDNAHash(dnahash:Uint8Array){
-    for(let cell of this.appInfo.cell_info[environment.ROLE_ID]){
-      if (Object.values(cell)[0].cell_id[0]  == dnahash)
-        return Object.values(cell)[0].name
+  getCellNameFromDNAHash(dnahash:Uint8Array):string{
+    let res = undefined
+    Object.values(this._cellData).forEach((cellDict) => { 
+      Object.values(cellDict).forEach((cell) => {
+      if (cell.cell_id[0] == dnahash)
+        res = cell.name
+      })
+    })
+    if (res == undefined)
+      throw("cell name with dna Hash: "+dnahash+" not found")
+    return res
+    /*
+    for(let role in this.appInfo.cell_info){  //[environment.ROLE_ID]){
+          let cellInfo = this.appInfo.cell_info[role]
     };
-    return undefined
+    return undefined*/
   }
 
-  protected getCellId(cell_name:string):CellId | undefined {
-    for(let installedcell of this._cellData[environment.ROLE_ID]){
-      if (Object.values(installedcell)[0].name == cell_name)
-        return Object.values(installedcell)[0].cell_id
-    };
-    return undefined
+  protected getCellId(role_name:string, cell_name:string):CellId | undefined {
+    let cellID = undefined
+    Object.entries(this._cellData).forEach(([role, cellDict]) => {
+      if (role_name == role){
+        Object.values(cellDict).forEach((cell)=>{
+          if (cell_name == cell.name)
+            cellID = cell.cell_id
+        })
+      }
+    })
+    if (cellID == undefined)
+      throw("cell name with role name: "+role_name+" and cell name "+cell_name+" not found")
+    return cellID
+  }
+
+  protected getCellDataFromAppInfo(appInfo:AppInfo):Dictionary<Dictionary<Cell>>{
+    let dict:Dictionary<Dictionary<Cell>> = {}
+    Object.entries(appInfo.cell_info).forEach(([role, cellInfoArr]) => {
+      var data = cellInfoArr.forEach((cellInfo) => {
+        Object.entries(cellInfo).forEach(([celltype,cell]) => {
+          switch (celltype) {
+            case "provisioned":
+              dict[role] = {[(cell as ProvisionedCell).name] :(cell as ProvisionedCell)}
+              break;
+            case "cloned":
+              dict[role] = {[(cell as ClonedCell).name] : (cell as ClonedCell)}
+              break;
+            default:
+              break;
+          }
+        })
+      })
+    });
+    return dict
   }
 
     //if this doesnt return a resolved promise.. the app will not bootstrap  
@@ -58,29 +102,28 @@ export class HolochainService implements OnDestroy{
           try{
             console.log("Connecting to holochain")
             this.appWS =  await AppAgentWebsocket.connect(environment.HOST_URL,environment.APP_ID,1500)
-            //appWSs.getCellIdFromRoleName()
             this.appWS.on("signal",(s)=>this.signalHandler(s))
             this.appInfo = await this.appWS.appInfo()//{ installed_app_id: environment.APP_ID});
-            this._cellData = this.appInfo.cell_info;
-            console.log("Connected to holochain",this.appInfo.cell_info)
+            this._cellData = this.getCellDataFromAppInfo(this.appInfo)
+            console.log("Connected to holochain",this._cellData,this.appInfo.cell_info)
             console.log("app status",this.appInfo.status)
-            sessionStorage.setItem("status","HOLOCHAIN")
+            const [statusData] = Object.entries(this.appInfo.status)
+            sessionStorage.setItem("status","HOLOCHAIN:"+statusData[0]+" "+(statusData[1] ? statusData[1] : ''))
           }catch(error){
               console.error(error)
               if (environment.mock){
                 sessionStorage.setItem("status","mock")
-                //this._cellData = new Record<"mock",[]>
-                  //{cell_id:[new Uint8Array(10), new Uint8Array(10)], role_id:"typedescriptor:role0"},
-                  //{cell_id:[new Uint8Array(8), new Uint8Array(8)], role_id:"holon:role0"},
-                  //{cell_id:[new Uint8Array(6), new Uint8Array(6)], role_id:"holon:role1"}] 
+                this._cellData = { ["myRole"] : {["mycell"] : {cell_id: fakeCellId, dna_modifiers: fakeDNAModifiers, name: "mycell"}},
+                                   ["myRole2"] : {["mycell2"] : {cell_id: fakeCellId, dna_modifiers: fakeDNAModifiers, name: "mycell2"}}
+                }
                 return Promise.resolve()
               }
         }
     }
 
-     call(cell:string, zome:string, fn_Name:string, payload:any, timeout=15000): Promise<any>{
-       const cellId = this.getCellId(cell)
-       if (!cellId) throw new Error("cell not found:"+cell);
+     call(role:string,cellname:string, zome:string, fn_Name:string, payload:any, timeout=15000): Promise<any>{
+       const cellId = this.getCellId(role,cellname)
+       if (!cellId) throw new Error("cell not found:"+cellname);
         return this.appWS.callZome(
           {
             cap_secret: null,
@@ -118,10 +161,10 @@ export class HolochainService implements OnDestroy{
 
     //TODO add event listener and relay state change back to UI
     getConnectionState():string{
-      if (this.appWS)
-        return ConnectionState[this.appWS.appWebsocket.client.socket.readyState]
-      else
-        return ConnectionState[1]
+     if (this.appWS.appWebsocket){
+      return ConnectionState[this.appWS.appWebsocket.client.socket.readyState]
+    } else
+      return ConnectionState[3]
     }
 
     ngOnDestroy(){

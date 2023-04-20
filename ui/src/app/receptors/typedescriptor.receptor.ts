@@ -9,14 +9,16 @@ import { mockHolonDescriptorArray, HolonDescriptor } from '../models/typedescrip
 @Injectable()
 export class TypeDescriptorReceptor {
   private _cellname!:string
-  private _zomes:string[] = ["typedescriptor"]
+  private _role!:string
+  private _zomes:string[] = ["hc_zome_coordinator_externs"]
   public signalReceived$ = new Subject<HolonDescriptor>()  //todo polymorphise generic type <TypeDescriptor>
 
  
   constructor(private hcs:HolochainService){
   }
 
-  registerCallback(cellname:string){
+  registerCallback(role:string, cellname:string){
+    this._role = role
     this._cellname = cellname
     this.hcs.registerCallback(cellname,this._zomes, (s)=>this.signalHandler(s))
   }
@@ -29,7 +31,7 @@ export class TypeDescriptorReceptor {
   }
 
   private callCell(fn_name: string, zome_name:string, payload: any): Promise<any> {
-    return this.hcs.call(this._cellname, zome_name, fn_name, payload);
+    return this.hcs.call(this._role, this._cellname, zome_name, fn_name, payload);
   }
 
   //future.. make dynamic hashmap lookup
