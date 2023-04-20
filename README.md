@@ -19,10 +19,11 @@ If not already done before,  Enable Nix commands and Nix flakes for your use:
  echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
  ```
 
-# Run cachix to cache OS specific holochain crates on your system (do this when you open a terminal to ensure you have updates)
+# cachix caching
+Run cachix to cache OS specific holochain crates on your system (do this when you open a terminal to ensure you have updates)
 
 ```bash
-sudo nix run nixpkgs/nixos-21.11#cachix -- use holochain-ci
+nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixos-21.11.tar.gz -p cachix --run "cachix use holochain-ci"
 ```
 
 ## Install and run tests:
